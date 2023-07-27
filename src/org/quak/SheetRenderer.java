@@ -1,21 +1,33 @@
 package org.quak;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
-public class SheetRenderer extends JComponent implements KeyListener {
+
+class TestAction extends AbstractAction {
+    TestAction() {
+        super("Test Action", null);
+    }
+    @Override public void actionPerformed(ActionEvent actionEvent) {
+        JOptionPane.showMessageDialog(null, "HelloWorld");
+    }
+}
+
+public class SheetRenderer extends JComponent {
     SheetFrame frame;
     SheetRegistry registry;
+    boolean topaint = false;
     public SheetRenderer(SheetFrame frame) { this(frame, new SheetRegistry()); }
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
         this.registry = registry;
-        addKeyListener(this);
+        this.getInputMap().put(KeyStroke.getKeyStroke("F2"),
+                "TestAction");
+        this.getActionMap().put("TestAction",
+                new TestAction());
     }
-    @Override public void keyTyped(KeyEvent keyEvent) { throw new NotYetImplemented(); }
-    @Override public void keyPressed(KeyEvent keyEvent) { throw new NotYetImplemented(); }
-    @Override public void keyReleased(KeyEvent keyEvent) { throw new NotYetImplemented(); }
     @Override protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawString("Hello world", 30, 30);
     }
 }
