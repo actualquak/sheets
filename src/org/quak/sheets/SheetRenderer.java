@@ -25,5 +25,13 @@ public class SheetRenderer extends JPanel {
 
         frame.setJMenuBar(menuBar);
     }
-    @Override public void paintComponent(Graphics g) { }
+    @Override public void paintComponent(Graphics graphics) {
+        int[] colWidths = new int[10];
+        int[] rowHeights = new int[10];
+        for(int col = 0; col < 10; col++) {
+            for(int row = 0; row < 10; row++) {
+                String displayed = registry.at(new CellPosition(col, row)).displayed();
+            }
+        }
+    }
 }
