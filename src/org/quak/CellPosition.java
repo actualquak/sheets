@@ -1,13 +1,23 @@
 package org.quak;
 
+import java.util.Objects;
+
 public class CellPosition {
-    CellPosition(int col, int row) { throw new NotYetImplemented(); }
-    public int col() { throw new NotYetImplemented(); }
-    public void col(int col) { throw new NotYetImplemented(); }
-    @Override public boolean equals(Object obj) { throw new NotYetImplemented(); }
-    @Override public int hashCode() { return super.hashCode(); }
-    public static CellPosition makeAbsolute(int col, int row) { throw new NotYetImplemented(); }
-    public static CellPosition makeRelative(CellPosition to, int col, int row) { throw new NotYetImplemented(); }
-    public int row() { throw new NotYetImplemented(); }
-    public void row(int row) { throw new NotYetImplemented(); }
+    private int col;
+    private int row;
+    CellPosition(int col, int row) { this.col = col; this.row = row; }
+    public int col() { return col; }
+    public void col(int col) { this.col = col; }
+    @Override public boolean equals(Object other) {
+        return other instanceof CellPosition o && row == o.row() && col == o.col();
+    }
+    @Override public int hashCode() {
+        return Objects.hash(col, row);
+    }
+    public static CellPosition makeAbsolute(int col, int row) { return new CellPosition(col, row); }
+    public static CellPosition makeRelative(CellPosition to, int col, int row) {
+        return new CellPosition(col + to.col(), row + to.row());
+    }
+    public int row() { return row; }
+    public void row(int row) { this.row = row; }
 }
