@@ -16,7 +16,6 @@ class TestAction extends AbstractAction {
 public class SheetRenderer extends JComponent {
     SheetFrame frame;
     SheetRegistry registry;
-    boolean topaint = false;
     public SheetRenderer(SheetFrame frame) { this(frame, new SheetRegistry()); }
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
