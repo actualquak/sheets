@@ -1,4 +1,4 @@
-package org.quak;
+package org.quak.sheets;
 
 public abstract class Cell {
     abstract public String displayed();

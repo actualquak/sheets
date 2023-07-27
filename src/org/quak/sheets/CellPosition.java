@@ -1,4 +1,4 @@
-package org.quak;
+package org.quak.sheets;
 
 import java.util.Objects;
 
