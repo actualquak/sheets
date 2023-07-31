@@ -4,7 +4,13 @@ import javax.swing.*;
 
 public class Util {
     public static String base26ButNotReally(int i) {
-        return "A";
+        StringBuilder b = new StringBuilder();
+        while(i > 0) {
+            int modulo = (i - 1) % 26;
+            b.append((char)('A' + modulo));
+            i = (i - modulo) / 26;
+        }
+        return b.reverse().toString();
     }
     public static ImageIcon loadImage(String imageName) {
         String imageLocation = "/images/" + imageName;

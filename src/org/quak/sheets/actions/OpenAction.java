@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.*;
 
 public class OpenAction extends MyAction {
-    public OpenAction() {
-        super("Open...", null, "Open File", KeyStroke.getKeyStroke("control o"), KeyEvent.VK_O);
+    @SuppressWarnings("unused") public OpenAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+        super("Open...",
+                null,
+                "Open a file",
+                KeyStroke.getKeyStroke("control o"),
+                KeyEvent.VK_O);
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) { }

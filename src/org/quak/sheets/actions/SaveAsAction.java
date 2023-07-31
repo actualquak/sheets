@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class SaveAsAction extends MyAction {
-    public SaveAsAction() {
-        super("Save as...", null, "Save File As", KeyStroke.getKeyStroke("control alt s"), KeyEvent.VK_S);
+    @SuppressWarnings("unused") public SaveAsAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+        super("Save as...",
+                null,
+                "Save the current file as",
+                KeyStroke.getKeyStroke("control alt s"),
+                KeyEvent.VK_S);
     }
     @Override public void actionPerformed(ActionEvent actionEvent) { }
 }

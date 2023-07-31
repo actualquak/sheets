@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class NewAction extends MyAction {
-    @SuppressWarnings("unused") public NewAction(@SuppressWarnings("unused") JMenuItem menuItem) {
-        super("New",
+public class MarkAsNumberAction extends MyAction {
+    @SuppressWarnings("unused") public MarkAsNumberAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+        super("Number",
                 null,
-                "Create a blank file",
+                "Mark selected cell(s) as numbers",
                 null,
                 KeyEvent.VK_N);
     }

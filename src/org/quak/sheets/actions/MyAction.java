@@ -4,7 +4,7 @@ import org.quak.sheets.Util;
 
 import javax.swing.*;
 
-abstract class MyAction extends AbstractAction {
+public abstract class MyAction extends AbstractAction {
     MyAction(String name, String iconLocation, String desc, KeyStroke accelKey, Integer mnemonic) {
         super();
         if (name != null) putValue(NAME, name);
