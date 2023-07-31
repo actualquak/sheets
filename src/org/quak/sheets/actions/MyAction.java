@@ -5,7 +5,7 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 
 public abstract class MyAction extends AbstractAction {
-    MyAction(String name, String iconLocation, String desc, KeyStroke accelKey, Integer mnemonic) {
+    public MyAction(String name, String iconLocation, String desc, KeyStroke accelKey, Integer mnemonic) {
         super();
         if (name != null) putValue(NAME, name);
         if (iconLocation != null) putValue(iconLocation, Util.loadImage(iconLocation));
