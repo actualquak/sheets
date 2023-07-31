@@ -31,6 +31,12 @@ class AreaSelection extends CellSelection {
         iterator().forEachRemaining(cells::add);
         return new IndividualSelection(cells).flipCell(cell);
     }
+    @Override public boolean isIn(CellPosition cell) {
+        return (first.col() <= cell.col() && cell.col() <= second.col()
+                || first.col() >= cell.col() && cell.col() >= second.col())
+                && (first.row() <= cell.row() && cell.row() <= second.row()
+                || first.row() >= cell.row() && cell.row() >= second.row());
+    }
     @Override public Iterator<CellPosition> iterator() {
         ArrayList<CellPosition> positions = new ArrayList<>();
         int rowIncrease = -(int)Math.signum(first.row() - second.row());
@@ -58,6 +64,9 @@ class IndividualSelection extends CellSelection {
         else positions.add(cell);
         return this;
     }
+    @Override public boolean isIn(CellPosition cell) {
+        return positions.contains(cell);
+    }
     @Override public Iterator<CellPosition> iterator() {
         return positions.iterator();
     }
@@ -69,6 +78,7 @@ public abstract class CellSelection {
     public abstract CellSelection expandRight();
     public abstract CellSelection expandUp();
     public abstract CellSelection flipCell(CellPosition cell);
+    public abstract boolean isIn(CellPosition cell);
     public abstract Iterator<CellPosition> iterator();
     public static CellSelection makeSelection(CellPosition cursor) {
         return new AreaSelection(cursor, cursor);

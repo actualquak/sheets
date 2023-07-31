@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SheetRenderer extends JPanel {
-    private SheetFrame frame;
+    private final SheetFrame frame;
     private SheetRegistry registry;
     private Graphics2D g;
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
@@ -64,7 +64,7 @@ public class SheetRenderer extends JPanel {
 
         frame.setJMenuBar(menuBar);
     }
-    JMenuItem getMenuItem(Class<? extends MyAction> actionType, Object... args) throws IllegalArgumentException {
+    private JMenuItem getMenuItem(Class<? extends MyAction> actionType, Object... args) throws IllegalArgumentException {
         // Today's episode of the idiocy show - what lengths will our loveable idiot Stanley go to avoid typing
         // which doesn't actually save him any typing? QUITE FAR IT SEEMS.
         JMenuItem menuItem = new JMenuItem(); Object c;
@@ -87,7 +87,7 @@ public class SheetRenderer extends JPanel {
         menuItem.setAction((Action) c);
         return menuItem;
     }
-    Dimension getTextShape(String text) {
+    private Dimension getTextShape(String text) {
         Rectangle2D d2d = g.getFontMetrics().getStringBounds(text, g);
         Dimension d = new Dimension();
         d.setSize(d2d.getWidth(), d2d.getHeight());
