@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LabelCell extends Cell {
     final String displayed;
-    LabelCell(String displayed) { this.displayed = displayed; }
+    public LabelCell(String displayed) { this.displayed = displayed; }
     @Override public List<Cell> depends() { return new ArrayList<>(); }
     @Override public String displayed() { return displayed; }
 }

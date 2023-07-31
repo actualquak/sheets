@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class SheetRegistry {
     private final HashMap<CellPosition, Cell> cells = new HashMap<>();
-    SheetRegistry() { }
+    public SheetRegistry() { }
     public Cell at(CellPosition pos) {
         if(pos.col() == 0 && pos.row() == 0) return cells.computeIfAbsent(pos, p -> new LabelCell("@"));
         if(pos.col() == 0) return cells.computeIfAbsent(pos, p -> new LabelCell(String.valueOf(p.row())));

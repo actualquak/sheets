@@ -5,7 +5,7 @@ import java.util.Objects;
 public class CellPosition {
     private int col;
     private int row;
-    CellPosition(int col, int row) { this.col = col; this.row = row; }
+    public CellPosition(int col, int row) { this.col = col; this.row = row; }
     public int col() { return col; }
     public void col(int col) { this.col = col; }
     @Override public boolean equals(Object other) {

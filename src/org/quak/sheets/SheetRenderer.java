@@ -10,9 +10,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SheetRenderer extends JPanel {
-    SheetFrame frame;
-    SheetRegistry registry;
-    Graphics2D g;
+    private SheetFrame frame;
+    private SheetRegistry registry;
+    private Graphics2D g;
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
         this.registry = registry;
