@@ -13,6 +13,8 @@ public class SheetRenderer extends JPanel {
     private final SheetFrame frame;
     private SheetRegistry registry;
     private Graphics2D g;
+    public CellSelection selection = null;
+    public CellPosition cursor = new CellPosition(1, 1);
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
         this.registry = registry;
@@ -62,6 +64,15 @@ public class SheetRenderer extends JPanel {
         dataMenu.add(markMenu);
         menuBar.add(dataMenu);
 
+        registerAction("DOWN", new DownArrowAction(this));
+        registerAction("LEFT", new LeftArrowAction(this));
+        registerAction("RIGHT", new RightArrowAction(this));
+        registerAction("UP", new UpArrowAction(this));
+        registerAction("shift DOWN", new DownArrowAction(this));
+        registerAction("shift LEFT", new LeftArrowAction(this));
+        registerAction("shift RIGHT", new RightArrowAction(this));
+        registerAction("shift UP", new UpArrowAction(this));
+
         frame.setJMenuBar(menuBar);
     }
     private JMenuItem getMenuItem(Class<? extends MyAction> actionType, Object... args) throws IllegalArgumentException {
@@ -98,8 +109,8 @@ public class SheetRenderer extends JPanel {
         Dimension screenSize = getSize();
         int[] colWidths = new int[100];
         int[] rowHeights = new int[100];
-        for(int col = 0; col < 100; col++) {
-            for(int row = 0; row < 100; row++) {
+        for(int col = 0; col < 100; col++) { // TODO better stuff here
+            for(int row = 0; row < 100; row++) { // TODO better stuff here too
                 String displayed = registry.at(new CellPosition(col, row)).displayed();
                 Dimension textSize = getTextShape(displayed);
                 colWidths[col] = Math.max(colWidths[col], textSize.width);
@@ -108,14 +119,26 @@ public class SheetRenderer extends JPanel {
         }
         int x = 0; int y;
         for (int col = 0; true; col++) {
-            g.drawLine(x, 0, x, screenSize.height);
+            //g.drawLine(x, 0, x, screenSize.height);
             x += 5;
             y = 0;
             for (int row = 0; true; row++) {
+                if((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
+                else if(selection != null && (selection.isIn(new CellPosition(col, row))
+                        || selection.isIn(new CellPosition(col, row))))
+                    g.setColor(Color.GREEN);
+                else g.setColor(Color.BLACK);
+                g.drawLine(x - 5, y, x - 5, y + rowHeights[row] + 10);
+                if(col == cursor.col() && (row == cursor.row() || row == cursor.row() + 1)) g.setColor(Color.RED);
+                else if(selection != null && (selection.isIn(new CellPosition(col, row))
+                        || selection.isIn(new CellPosition(col, row))))
+                    g.setColor(Color.GREEN);
+                else g.setColor(Color.BLACK);
                 g.drawLine(x - 5, y, x + colWidths[col] + 5, y);
                 y += 5;
                 y += rowHeights[row];
                 String displayed = registry.at(new CellPosition(col, row)).displayed();
+                g.setColor(Color.BLACK);
                 g.drawString(displayed, x, y);
                 y += 5;
                 if (y >= screenSize.height) break;
@@ -124,5 +147,9 @@ public class SheetRenderer extends JPanel {
             x += 5;
             if (x >= screenSize.width) break;
         }
+    }
+    private void registerAction(String code, Action action) {
+        getInputMap().put(KeyStroke.getKeyStroke(code), code);
+        getActionMap().put(code, action);
     }
 }
