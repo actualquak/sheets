@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class DeleteRowAction extends MyAction {
-    @SuppressWarnings("unused") public DeleteRowAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public DeleteRowAction() {
         super("Delete Row",
                 null,
                 "Delete the row(s) selected",

@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.*;
 
 public class OpenAction extends MyAction {
-    @SuppressWarnings("unused") public OpenAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public OpenAction() {
         super("Open...",
                 null,
                 "Open a file",

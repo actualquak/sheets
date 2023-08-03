@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class UndoAction extends MyAction {
-    @SuppressWarnings("unused") public UndoAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public UndoAction() {
         super("Undo",
                 null,
                 "Undo last edit",

@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class SheetRenderer extends JPanel {
-    private final SheetFrame frame;
+    public final SheetFrame frame;
     private SheetRegistry registry;
     private Graphics2D g;
     public CellSelection selection = null;
@@ -34,37 +34,36 @@ public class SheetRenderer extends JPanel {
         editMenu.setMnemonic(KeyEvent.VK_E);
         editMenu.add(getMenuItem(UndoAction.class));
         editMenu.add(getMenuItem(RedoAction.class));
-        editMenu.add(getMenuItem(RepeatAction.class));
+        editMenu.add(new JSeparator());
+        editMenu.add(getMenuItem(CutAction.class));
+        editMenu.add(getMenuItem(CopyAction.class));
+        editMenu.add(getMenuItem(PasteAction.class));
+        editMenu.add(new JSeparator());
+        editMenu.add(getMenuItem(FindAction.class, this));
+        editMenu.add(getMenuItem(ReplaceAction.class, this));
         menuBar.add(editMenu);
 
-        JMenu insertMenu = new JMenu("Insert");
-        insertMenu.setMnemonic(KeyEvent.VK_I);
-        JMenu insertColumnMenu = new JMenu("Column...");
-        insertColumnMenu.setMnemonic(KeyEvent.VK_C);
-        insertColumnMenu.add(getMenuItem(InsertColumnLeftAction.class));
-        insertColumnMenu.add(getMenuItem(InsertColumnRightAction.class));
-        insertMenu.add(insertColumnMenu);
-        JMenu insertRowMenu = new JMenu("Row...");
-        insertRowMenu.setMnemonic(KeyEvent.VK_R);
-        insertRowMenu.add(getMenuItem(InsertRowAboveAction.class));
-        insertRowMenu.add(getMenuItem(InsertRowBelowAction.class));
-        insertMenu.add(insertRowMenu);
-        insertMenu.add(new JSeparator());
-        insertMenu.add(getMenuItem(DeleteColumnAction.class));
-        insertMenu.add(getMenuItem(DeleteRowAction.class));
-        menuBar.add(insertMenu);
-
-        JMenu dataMenu = new JMenu("Data");
-        dataMenu.setMnemonic(KeyEvent.VK_D);
+        JMenu cellMenu = new JMenu("Cell");
+        cellMenu.setMnemonic(KeyEvent.VK_C);
+        cellMenu.add(getMenuItem(InsertColumnLeftAction.class));
+        cellMenu.add(getMenuItem(InsertColumnRightAction.class));
+        cellMenu.add(getMenuItem(InsertRowAboveAction.class));
+        cellMenu.add(getMenuItem(InsertRowBelowAction.class));
+        cellMenu.add(new JSeparator());
+        cellMenu.add(getMenuItem(DeleteColumnAction.class));
+        cellMenu.add(getMenuItem(DeleteRowAction.class));
+        cellMenu.add(new JSeparator());
         JMenu markMenu = new JMenu("Mark as...");
         markMenu.setMnemonic(KeyEvent.VK_M);
         markMenu.add(getMenuItem(MarkAsFormulaAction.class));
         markMenu.add(getMenuItem(MarkAsTextAction.class));
         markMenu.add(getMenuItem(MarkAsNumberAction.class));
-        dataMenu.add(markMenu);
-        menuBar.add(dataMenu);
+        cellMenu.add(markMenu);
+        cellMenu.add(new JSeparator());
+        menuBar.add(cellMenu);
 
         registerAction("DOWN", new DownArrowAction(this));
+        registerAction("ENTER", new EnterAction(this));
         registerAction("LEFT", new LeftArrowAction(this));
         registerAction("RIGHT", new RightArrowAction(this));
         registerAction("UP", new UpArrowAction(this));
@@ -83,15 +82,12 @@ public class SheetRenderer extends JPanel {
         Constructor<?> theOneTrueConstructor = null;
         for (Constructor<?> constructor : constructors) {
             theOneTrueConstructor = constructor;
-            if (theOneTrueConstructor.getGenericParameterTypes().length == args.length + 1) break;
+            if (theOneTrueConstructor.getGenericParameterTypes().length == args.length) break;
         }
         if(theOneTrueConstructor == null) throw new IllegalArgumentException();
         try {
             theOneTrueConstructor.setAccessible(true);
-            Object[] newArgs = new Object[args.length + 1];
-            System.arraycopy(args, 0, newArgs, 1, args.length);
-            newArgs[0] = menuItem;
-            c = theOneTrueConstructor.newInstance(newArgs);
+            c = theOneTrueConstructor.newInstance(args);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new IllegalArgumentException();
         }
@@ -125,13 +121,13 @@ public class SheetRenderer extends JPanel {
             for (int row = 0; true; row++) {
                 if((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
                 else if(selection != null && (selection.isIn(new CellPosition(col, row))
-                        || selection.isIn(new CellPosition(col, row))))
+                        || selection.isIn(new CellPosition(col - 1, row))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
                 g.drawLine(x - 5, y, x - 5, y + rowHeights[row] + 10);
                 if(col == cursor.col() && (row == cursor.row() || row == cursor.row() + 1)) g.setColor(Color.RED);
                 else if(selection != null && (selection.isIn(new CellPosition(col, row))
-                        || selection.isIn(new CellPosition(col, row))))
+                        || selection.isIn(new CellPosition(col, row - 1))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
                 g.drawLine(x - 5, y, x + colWidths[col] + 5, y);

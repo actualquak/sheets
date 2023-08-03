@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class SaveAction extends MyAction {
-    @SuppressWarnings("unused") public SaveAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public SaveAction() {
         super("Save",
                 null,
                 "Save the current file",

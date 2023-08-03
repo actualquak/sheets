@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class MarkAsTextAction extends MyAction {
-    @SuppressWarnings("unused") public MarkAsTextAction() {
-        super("Text",
+public class CutAction extends MyAction {
+    @SuppressWarnings("unused") public CutAction() {
+        super("Cut",
                 null,
-                "Mark selected cell(s) as text",
-                null,
+                "Cut text to clipboard",
+                KeyStroke.getKeyStroke("control X"),
                 KeyEvent.VK_T);
     }
     @Override

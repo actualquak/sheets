@@ -14,10 +14,10 @@ public class UpArrowAction extends MyAction {
         this.context = context;
     }
     @Override public void actionPerformed(ActionEvent e) {
-        context.cursor = new CellPosition(context.cursor.col(), Math.max(context.cursor.row() - 1, 1));
         if((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0 && context.selection == null)
             context.selection = CellSelection.makeSelection(context.cursor);
         if(context.selection != null) context.selection.expandUp();
+        context.cursor = new CellPosition(context.cursor.col(), Math.max(context.cursor.row() - 1, 1));
         context.repaint();
     }
 }

@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class MarkAsFormulaAction extends MyAction {
-    @SuppressWarnings("unused") public MarkAsFormulaAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public MarkAsFormulaAction() {
         super("Formula",
                 null,
                 "Mark selected cell(s) as formulas",

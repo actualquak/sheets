@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class RedoAction extends MyAction {
-    @SuppressWarnings("unused") public RedoAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public RedoAction() {
         super("Redo",
                 null,
                 "Redo last undo",

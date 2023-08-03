@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class MarkAsNumberAction extends MyAction {
-    @SuppressWarnings("unused") public MarkAsNumberAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public MarkAsNumberAction() {
         super("Number",
                 null,
                 "Mark selected cell(s) as numbers",

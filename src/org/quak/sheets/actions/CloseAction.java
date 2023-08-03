@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class CloseAction extends MyAction {
-    @SuppressWarnings("unused") public CloseAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public CloseAction() {
         super("Close",
                 null,
                 "Close the current file",

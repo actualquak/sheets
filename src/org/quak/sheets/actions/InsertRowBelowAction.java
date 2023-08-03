@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class InsertRowBelowAction extends MyAction {
-    @SuppressWarnings("unused") public InsertRowBelowAction(@SuppressWarnings("unused") JMenuItem menuItem) {
-        super("Below",
+    @SuppressWarnings("unused") public InsertRowBelowAction() {
+        super("Insert Row Below",
                 null,
                 "Insert a row below the selection",
                 null,

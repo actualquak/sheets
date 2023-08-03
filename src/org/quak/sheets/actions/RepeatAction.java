@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class RepeatAction extends MyAction {
-    @SuppressWarnings("unused") public RepeatAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public RepeatAction() {
         super("Repeat",
                 null,
                 "Repeat last operation",

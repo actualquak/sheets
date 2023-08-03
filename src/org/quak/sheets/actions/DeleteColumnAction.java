@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class DeleteColumnAction extends MyAction {
-    @SuppressWarnings("unused") public DeleteColumnAction(@SuppressWarnings("unused") JMenuItem menuItem) {
+    @SuppressWarnings("unused") public DeleteColumnAction() {
         super("Delete Column",
                 null,
                 "Delete the column(s) selected",

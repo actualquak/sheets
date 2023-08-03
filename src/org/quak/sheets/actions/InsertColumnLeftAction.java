@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class InsertColumnLeftAction extends MyAction {
-    @SuppressWarnings("unused") public InsertColumnLeftAction(@SuppressWarnings("unused") JMenuItem menuItem) {
-        super("Left",
+    @SuppressWarnings("unused") public InsertColumnLeftAction() {
+        super("Insert Column Left",
                 null,
                 "Insert a column to the left of the selection",
                 null,

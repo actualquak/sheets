@@ -3,6 +3,7 @@ package org.quak.sheets;
 import javax.swing.*;
 
 public class Util {
+    private static FindDialog dialog = null;
     public static String base26ButNotReally(int i) {
         StringBuilder b = new StringBuilder();
         while(i > 0) {
@@ -11,6 +12,10 @@ public class Util {
             i = (i - modulo) / 26;
         }
         return b.reverse().toString();
+    }
+    public static void showDialog(SheetRenderer context, boolean replace) {
+        if(dialog == null) dialog = new FindDialog(context);
+        dialog.replaceAndShow(replace);
     }
     public static ImageIcon loadImage(String imageName) {
         String imageLocation = "/images/" + imageName;
