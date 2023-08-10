@@ -2,7 +2,6 @@ package org.quak.sheets.actions;
 
 import org.quak.sheets.SheetRenderer;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class EnterAction extends MyAction {

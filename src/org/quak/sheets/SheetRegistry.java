@@ -1,5 +1,9 @@
 package org.quak.sheets;
 
+import org.quak.sheets.cells.Cell;
+import org.quak.sheets.cells.DummyCell;
+import org.quak.sheets.cells.LabelCell;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -17,6 +21,10 @@ public class SheetRegistry {
         if(pos.col() == 0 || pos.row() == 0) return;
         cells.put(pos, cell);
     }
+    public void deleteColumn(int col) { throw new NotYetImplemented(); }
+    public void deleteRow(int row) { throw new NotYetImplemented(); }
+    public void insertColumnRight(int col) { throw new NotYetImplemented(); }
+    public void insertRowBelow(int row) { throw new NotYetImplemented(); }
     public static SheetRegistry load(ByteArrayInputStream bais) { throw new NotYetImplemented(); }
     public void save(ByteArrayOutputStream baos) { throw new NotYetImplemented(); }
 }

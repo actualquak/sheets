@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class SheetRenderer extends JPanel {
     public final SheetFrame frame;
-    private SheetRegistry registry;
+    private final SheetRegistry registry;
     private Graphics2D g;
     public CellSelection selection = null;
     public CellPosition cursor = new CellPosition(1, 1);
@@ -27,7 +27,7 @@ public class SheetRenderer extends JPanel {
         fileMenu.add(getMenuItem(OpenAction.class));
         fileMenu.add(getMenuItem(SaveAction.class));
         fileMenu.add(getMenuItem(SaveAsAction.class));
-        fileMenu.add(getMenuItem(CloseAction.class));
+        fileMenu.add(getMenuItem(CloseAction.class, this));
         menuBar.add(fileMenu);
 
         JMenu editMenu = new JMenu("Edit");
@@ -45,13 +45,13 @@ public class SheetRenderer extends JPanel {
 
         JMenu cellMenu = new JMenu("Cell");
         cellMenu.setMnemonic(KeyEvent.VK_C);
-        cellMenu.add(getMenuItem(InsertColumnLeftAction.class));
-        cellMenu.add(getMenuItem(InsertColumnRightAction.class));
-        cellMenu.add(getMenuItem(InsertRowAboveAction.class));
-        cellMenu.add(getMenuItem(InsertRowBelowAction.class));
+        cellMenu.add(getMenuItem(InsertColumnLeftAction.class, this, registry));
+        cellMenu.add(getMenuItem(InsertColumnRightAction.class, this, registry));
+        cellMenu.add(getMenuItem(InsertRowAboveAction.class, this, registry));
+        cellMenu.add(getMenuItem(InsertRowBelowAction.class, this, registry));
         cellMenu.add(new JSeparator());
-        cellMenu.add(getMenuItem(DeleteColumnAction.class));
-        cellMenu.add(getMenuItem(DeleteRowAction.class));
+        cellMenu.add(getMenuItem(DeleteColumnAction.class, this, registry));
+        cellMenu.add(getMenuItem(DeleteRowAction.class, this, registry));
         cellMenu.add(new JSeparator());
         JMenu markMenu = new JMenu("Mark as...");
         markMenu.setMnemonic(KeyEvent.VK_M);

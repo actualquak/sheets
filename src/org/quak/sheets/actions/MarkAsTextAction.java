@@ -1,6 +1,7 @@
 package org.quak.sheets.actions;
 
-import javax.swing.*;
+import org.quak.sheets.NotYetImplemented;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -13,5 +14,5 @@ public class MarkAsTextAction extends MyAction {
                 KeyEvent.VK_T);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { }
+    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
 }

@@ -1,6 +1,10 @@
 package org.quak.sheets;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 public class Util {
     private static FindDialog dialog = null;
@@ -25,5 +29,31 @@ public class Util {
             return null;
         }
         return new ImageIcon(imageURL);
+    }
+    public static ArrayList<Integer> getSortedSelectionColumns(SheetRenderer renderer) {
+        if(renderer.selection != null) {
+            LinkedHashSet<Integer> columnDeletionMap = new LinkedHashSet<>();
+            Iterator<CellPosition> it = renderer.selection.iterator();
+            while (it.hasNext()) {
+                CellPosition pos = it.next();
+                columnDeletionMap.add(pos.col());
+            }
+            ArrayList<Integer> q = new ArrayList<>(columnDeletionMap);
+            Collections.sort(q);
+            return q;
+        } else return new ArrayList<>(renderer.cursor.col());
+    }
+    public static ArrayList<Integer> getSortedSelectionRows(SheetRenderer renderer) {
+        if (renderer.selection != null) {
+            LinkedHashSet<Integer> rowDeletionMap = new LinkedHashSet<>();
+            Iterator<CellPosition> it = renderer.selection.iterator();
+            while (it.hasNext()) {
+                CellPosition pos = it.next();
+                rowDeletionMap.add(pos.row());
+            }
+            ArrayList<Integer> q = new ArrayList<>(rowDeletionMap);
+            Collections.sort(q);
+            return q;
+        } else return new ArrayList<>(renderer.cursor.row());
     }
 }

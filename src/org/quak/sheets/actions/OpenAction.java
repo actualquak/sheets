@@ -1,7 +1,8 @@
 package org.quak.sheets.actions;
 
+import org.quak.sheets.NotYetImplemented;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.*;
 
 public class OpenAction extends MyAction {
@@ -13,5 +14,5 @@ public class OpenAction extends MyAction {
                 KeyEvent.VK_O);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { }
+    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
 }
