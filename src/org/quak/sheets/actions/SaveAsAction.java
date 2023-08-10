@@ -11,7 +11,7 @@ public class SaveAsAction extends MyAction {
         super("Save as...",
                 null,
                 "Save the current file as",
-                KeyStroke.getKeyStroke("control alt s"),
+                KeyStroke.getKeyStroke("control alt S"),
                 KeyEvent.VK_S);
     }
     @Override public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }

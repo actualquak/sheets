@@ -9,7 +9,7 @@ public class UndoAction extends MyAction {
         super("Undo",
                 null,
                 "Undo last edit",
-                KeyStroke.getKeyStroke("control z"),
+                KeyStroke.getKeyStroke("control Z"),
                 KeyEvent.VK_U);
     }
     @Override

@@ -28,6 +28,7 @@ public class SheetRenderer extends JPanel {
         fileMenu.add(getMenuItem(SaveAction.class));
         fileMenu.add(getMenuItem(SaveAsAction.class));
         fileMenu.add(getMenuItem(CloseAction.class, this));
+        fileMenu.add(getMenuItem(CloseAllAction.class));
         menuBar.add(fileMenu);
 
         JMenu editMenu = new JMenu("Edit");

@@ -10,7 +10,7 @@ public class OpenAction extends MyAction {
         super("Open...",
                 null,
                 "Open a file",
-                KeyStroke.getKeyStroke("control o"),
+                KeyStroke.getKeyStroke("control O"),
                 KeyEvent.VK_O);
     }
     @Override

@@ -4,6 +4,7 @@ import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class DeleteRowAction extends MyAction {
         super("Delete Row",
                 null,
                 "Delete the row(s) selected",
-                null,
+                KeyStroke.getKeyStroke("control D"),
                 KeyEvent.VK_E);
         this.registry = registry;
         this.renderer = renderer;

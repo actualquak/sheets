@@ -4,6 +4,7 @@ import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class InsertRowBelowAction extends MyAction {
         super("Insert Row Below",
                 null,
                 "Insert a row below the selection",
-                null,
+                KeyStroke.getKeyStroke("alt I"),
                 KeyEvent.VK_B);
         this.renderer = renderer;
         this.registry = registry;

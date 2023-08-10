@@ -4,6 +4,7 @@ import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class DeleteColumnAction extends MyAction {
         super("Delete Column",
                 null,
                 "Delete the column(s) selected",
-                null,
+                KeyStroke.getKeyStroke("control shift D"),
                 KeyEvent.VK_D);
         this.registry = registry;
         this.renderer = renderer;

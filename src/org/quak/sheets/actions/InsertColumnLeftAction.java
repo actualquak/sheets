@@ -4,6 +4,7 @@ import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class InsertColumnLeftAction extends MyAction {
         super("Insert Column Left",
                 null,
                 "Insert a column to the left of the selection",
-                null,
+                KeyStroke.getKeyStroke("alt shift C"),
                 KeyEvent.VK_L);
         this.renderer = renderer;
         this.registry = registry;

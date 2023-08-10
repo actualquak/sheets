@@ -2,6 +2,7 @@ package org.quak.sheets.actions;
 
 import org.quak.sheets.NotYetImplemented;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,7 +11,7 @@ public class MarkAsTextAction extends MyAction {
         super("Text",
                 null,
                 "Mark selected cell(s) as text",
-                null,
+                KeyStroke.getKeyStroke("alt Q"),
                 KeyEvent.VK_T);
     }
     @Override

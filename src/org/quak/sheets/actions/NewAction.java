@@ -1,7 +1,9 @@
 package org.quak.sheets.actions;
 
 import org.quak.sheets.NotYetImplemented;
+import org.quak.sheets.SheetApplication;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,9 +12,8 @@ public class NewAction extends MyAction {
         super("New",
                 null,
                 "Create a blank file",
-                null,
+                KeyStroke.getKeyStroke("control N"),
                 KeyEvent.VK_N);
     }
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    @Override public void actionPerformed(ActionEvent actionEvent) { SheetApplication.main(new String[]{}); }
 }

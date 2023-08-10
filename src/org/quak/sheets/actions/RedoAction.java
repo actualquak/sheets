@@ -9,7 +9,7 @@ public class RedoAction extends MyAction {
         super("Redo",
                 null,
                 "Redo last undo",
-                KeyStroke.getKeyStroke("control shift z"),
+                KeyStroke.getKeyStroke("control shift Z"),
                 KeyEvent.VK_R);
     }
     @Override
