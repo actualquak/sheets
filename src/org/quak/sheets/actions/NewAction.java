@@ -1,6 +1,5 @@
 package org.quak.sheets.actions;
 
-import org.quak.sheets.NotYetImplemented;
 import org.quak.sheets.SheetApplication;
 
 import javax.swing.*;

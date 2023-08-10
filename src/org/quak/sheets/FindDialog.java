@@ -18,6 +18,7 @@ public class FindDialog extends JDialog {
     }
     public void replaceAndShow(boolean replace) {
         this.replace = replace;
+        setSize(200, 200);
         refreshUi();
         setVisible(true);
     }
@@ -44,6 +45,8 @@ public class FindDialog extends JDialog {
                             .addComponent(findTextField)
                             .addComponent(replaceTextField)));
         } else {
+            setSize(findLabel.getPreferredSize().width + findTextField.getPreferredSize().width,
+                    Math.max(findLabel.getPreferredSize().height, findTextField.getPreferredSize().height));
             layout.setVerticalGroup(layout.createParallelGroup()
                     .addComponent(findLabel)
                     .addComponent(findTextField));
