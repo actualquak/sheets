@@ -16,8 +16,5 @@ public class CloseAction extends MyAction {
                 KeyEvent.VK_C);
         this.renderer = renderer;
     }
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        renderer.frame.dispose();
-    }
+    @Override public void actionPerformed(ActionEvent actionEvent) { renderer.frame.dispose(); }
 }

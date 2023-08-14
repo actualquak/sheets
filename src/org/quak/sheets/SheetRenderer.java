@@ -1,23 +1,32 @@
 package org.quak.sheets;
 
 import org.quak.sheets.actions.*;
+import org.quak.sheets.cells.LabelCell;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
-public class SheetRenderer extends JPanel {
+public class SheetRenderer extends JPanel implements KeyListener {
     public final SheetFrame frame;
     private final SheetRegistry registry;
     private Graphics2D g;
     public CellSelection selection = null;
+    public boolean enteringData = false;
+    public boolean wasEnteringData = false;
+    public StringBuilder dataEntry = new StringBuilder();
+    public double easter = 0;
     public CellPosition cursor = new CellPosition(1, 1);
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
         this.registry = registry;
+
+        addKeyListener(this);
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -72,6 +81,8 @@ public class SheetRenderer extends JPanel {
         registerAction("shift LEFT", new LeftArrowAction(this));
         registerAction("shift RIGHT", new RightArrowAction(this));
         registerAction("shift UP", new UpArrowAction(this));
+        registerAction("control alt shift ESCAPE", new EasterEggRotateAntiClockwise(this));
+        registerAction("control alt ESCAPE", new EasterEggRotateClockwise(this));
 
         frame.setJMenuBar(menuBar);
     }
@@ -103,22 +114,26 @@ public class SheetRenderer extends JPanel {
     }
     @Override public void paintComponent(Graphics graphics) {
         g = (Graphics2D) graphics;
+        super.paintComponent(g);
+        g.rotate(easter);
+        String displayed;
         Dimension screenSize = getSize();
         int[] colWidths = new int[100];
         int[] rowHeights = new int[100];
-        for(int col = 0; col < 100; col++) { // TODO better stuff here
-            for(int row = 0; row < 100; row++) { // TODO better stuff here too
-                String displayed = registry.at(new CellPosition(col, row)).displayed();
+        for(int col = 0; col < 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
+            for(int row = 0; row < 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
+                if(enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
+                else displayed = registry.at(new CellPosition(col, row)).displayed();
                 Dimension textSize = getTextShape(displayed);
                 colWidths[col] = Math.max(colWidths[col], textSize.width);
                 rowHeights[row] = Math.max(rowHeights[row], textSize.height);
             }
         }
+        int topBarHeight = Arrays.stream(rowHeights).max().getAsInt() + 10;
         int x = 0; int y;
         for (int col = 0; true; col++) {
-            //g.drawLine(x, 0, x, screenSize.height);
             x += 5;
-            y = 0;
+            y = topBarHeight;
             for (int row = 0; true; row++) {
                 if((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
                 else if(selection != null && (selection.isIn(new CellPosition(col, row))
@@ -134,8 +149,9 @@ public class SheetRenderer extends JPanel {
                 g.drawLine(x - 5, y, x + colWidths[col] + 5, y);
                 y += 5;
                 y += rowHeights[row];
-                String displayed = registry.at(new CellPosition(col, row)).displayed();
                 g.setColor(Color.BLACK);
+                if(enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
+                else displayed = registry.at(new CellPosition(col, row)).displayed();
                 g.drawString(displayed, x, y);
                 y += 5;
                 if (y >= screenSize.height) break;
@@ -144,9 +160,39 @@ public class SheetRenderer extends JPanel {
             x += 5;
             if (x >= screenSize.width) break;
         }
+        if(enteringData) g.drawString(dataEntry.toString(), 5, topBarHeight - 5);
+        else g.drawString(registry.at(cursor).value(), 5, topBarHeight - 5);
     }
     private void registerAction(String code, Action action) {
         getInputMap().put(KeyStroke.getKeyStroke(code), code);
         getActionMap().put(code, action);
     }
+    @Override public void keyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        if(c == KeyEvent.CHAR_UNDEFINED || c == '\n' || c == '\b') return;
+        if(!enteringData) dataEntry = new StringBuilder();
+        enteringData = true;
+        dataEntry.append(c);
+        repaint();
+    }
+    @Override public void keyPressed(KeyEvent e) {
+        if(!enteringData) return;
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP -> {
+                enteringData = false;
+                registry.at(cursor, new LabelCell(dataEntry.toString()));
+            }
+            case KeyEvent.VK_ENTER -> {
+                enteringData = false;
+                wasEnteringData = true;
+                registry.at(cursor, new LabelCell(dataEntry.toString()));
+                repaint();
+            }
+            case KeyEvent.VK_BACK_SPACE -> {
+                if(dataEntry.length() > 0) dataEntry.setLength(dataEntry.length() - 1);
+                repaint();
+            }
+        }
+    }
+    @Override public void keyReleased(KeyEvent e) { }
 }

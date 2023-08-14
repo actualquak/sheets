@@ -11,7 +11,8 @@ public class EnterAction extends MyAction {
         this.sheetRenderer = sheetRenderer;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        sheetRenderer.selection = null;
-        sheetRenderer.repaint();
+        if(sheetRenderer.wasEnteringData) { sheetRenderer.wasEnteringData = false; return; }
+        if(sheetRenderer.selection != null) { sheetRenderer.selection = null; sheetRenderer.repaint(); }
+        else { sheetRenderer.enteringData = true; sheetRenderer.dataEntry = new StringBuilder(); sheetRenderer.repaint(); }
     }
 }
