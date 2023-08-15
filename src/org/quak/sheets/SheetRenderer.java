@@ -115,9 +115,9 @@ public class SheetRenderer extends JPanel implements KeyListener {
     @Override public void paintComponent(Graphics graphics) {
         g = (Graphics2D) graphics;
         super.paintComponent(g);
-        g.rotate(easter);
         String displayed;
         Dimension screenSize = getSize();
+        g.rotate(easter, screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         int[] colWidths = new int[100];
         int[] rowHeights = new int[100];
         for(int col = 0; col < 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
