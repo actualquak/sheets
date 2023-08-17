@@ -1,5 +1,9 @@
 package org.quak.sheets.cells;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 public abstract class Cell {
     public <T extends Cell> T as(Class<T> type) throws IllegalArgumentException {
         if (type.isInstance(this)) return type.cast(this);
@@ -7,4 +11,17 @@ public abstract class Cell {
     }
     public abstract String displayed();
     public abstract String value();
+    public static Cell load(ObjectInput in) throws IOException {
+        return switch (in.readInt()) {
+            case 0 -> DummyCell.loadBody(in);
+            case 1 -> LabelCell.loadBody(in);
+            default -> throw new IOException("Invalid formatting");
+        };
+    }
+    public void save(ObjectOutput out) throws IOException {
+        if(getClass().equals(DummyCell.class)) out.writeInt(0);
+        else if(getClass().equals(LabelCell.class)) out.writeInt(1);
+        writeBody(out);
+    }
+    abstract void writeBody(ObjectOutput out) throws IOException;
 }

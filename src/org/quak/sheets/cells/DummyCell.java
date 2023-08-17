@@ -1,5 +1,7 @@
 package org.quak.sheets.cells;
 
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DummyCell extends Cell {
@@ -9,5 +11,10 @@ public class DummyCell extends Cell {
     }
     @Override public String value() {
         return String.valueOf(dummyNum);
+    }
+    @Override void writeBody(ObjectOutput out) {
+    }
+    static DummyCell loadBody(ObjectInput in) {
+        return new DummyCell();
     }
 }

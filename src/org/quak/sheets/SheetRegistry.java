@@ -25,6 +25,9 @@ public class SheetRegistry {
         if (pos.col() == 0 || pos.row() == 0) return;
         cells.put(pos, cell);
     }
+    public void del(CellPosition pos) {
+        cells.remove(pos);
+    }
     public void deleteColumn(int col) {
         HashMap<CellPosition, Cell> map = new HashMap<>();
         cells.forEach((pos, cell) -> {

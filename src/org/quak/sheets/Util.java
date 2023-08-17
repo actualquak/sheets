@@ -1,6 +1,8 @@
 package org.quak.sheets;
 
 import javax.swing.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -63,5 +65,13 @@ public class Util {
             l.add(renderer.cursor.row());
             return l;
         }
+    }
+    public static Transferable copySelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
+        if(renderer.enteringData) return new StringSelection(renderer.dataEntry.toString());
+        else return new StringSelection(registry.at(renderer.cursor).value());
+    }
+    public static void deleteSelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
+        if(renderer.enteringData) renderer.dataEntry = new StringBuilder();
+        else registry.del(renderer.cursor);
     }
 }

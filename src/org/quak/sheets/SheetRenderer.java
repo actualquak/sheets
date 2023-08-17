@@ -22,10 +22,10 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
     public boolean wasEnteringData = false;
     public StringBuilder dataEntry = new StringBuilder();
     public double easter = 0;
-    private CellPosition topLeftCell = new CellPosition(0, 0);
+    public CellPosition cursor = new CellPosition(1, 1);
     int oldColNum = 100;
     int oldRowNum = 100;
-    public CellPosition cursor = new CellPosition(1, 1);
+    private CellPosition topLeftCell = new CellPosition(0, 0);
     private Graphics2D g;
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
@@ -50,9 +50,9 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         editMenu.add(getMenuItem(UndoAction.class));
         editMenu.add(getMenuItem(RedoAction.class));
         editMenu.add(new JSeparator());
-        editMenu.add(getMenuItem(CutAction.class));
-        editMenu.add(getMenuItem(CopyAction.class));
-        editMenu.add(getMenuItem(PasteAction.class));
+        editMenu.add(getMenuItem(CutAction.class, this, registry));
+        editMenu.add(getMenuItem(CopyAction.class, this, registry));
+        editMenu.add(getMenuItem(PasteAction.class, this, registry));
         editMenu.add(new JSeparator());
         editMenu.add(getMenuItem(FindAction.class, this));
         editMenu.add(getMenuItem(ReplaceAction.class, this));
@@ -121,27 +121,28 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
     @Override public void paintComponent(Graphics graphics) {
         int col_top = topLeftCell.col();
         int row_top = topLeftCell.row();
-        if(cursor.col() <= topLeftCell.col()) {
+        if (cursor.col() <= topLeftCell.col()) {
             topLeftCell = new CellPosition(topLeftCell.col() - 1, topLeftCell.row());
             repaint();
             return;
         }
-        if(cursor.row() <= topLeftCell.row()) {
+        if (cursor.row() <= topLeftCell.row()) {
             topLeftCell = new CellPosition(topLeftCell.col(), topLeftCell.row() - 1);
             repaint();
             return;
         }
-        if(cursor.col() >= topLeftCell.col() + oldColNum) {
+        if (cursor.col() >= topLeftCell.col() + oldColNum) {
             topLeftCell = new CellPosition(topLeftCell.col() + 1, topLeftCell.row());
             repaint();
             return;
         }
-        if(cursor.row() >= topLeftCell.row() + oldRowNum) {
+        if (cursor.row() >= topLeftCell.row() + oldRowNum) {
             topLeftCell = new CellPosition(topLeftCell.col(), topLeftCell.row() + 1);
             repaint();
             return;
         }
-        oldRowNum = 0; oldColNum = 0;
+        oldRowNum = 0;
+        oldColNum = 0;
 
         g = (Graphics2D) graphics;
         super.paintComponent(g);
@@ -183,11 +184,17 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
                 g.drawString(displayed, x, y);
                 y += 5;
-                if (y >= screenSize.height) { oldRowNum = Math.max(row - row_top, oldRowNum); break; }
+                if (y >= screenSize.height) {
+                    oldRowNum = Math.max(row - row_top, oldRowNum);
+                    break;
+                }
             }
             x += colWidths[col - col_top];
             x += 5;
-            if (x >= screenSize.width) { oldColNum = Math.max(col - col_top, oldColNum); break; }
+            if (x >= screenSize.width) {
+                oldColNum = Math.max(col - col_top, oldColNum);
+                break;
+            }
         }
         if (enteringData) g.drawString(dataEntry.toString(), 5, topBarHeight - 5);
         else g.drawString(registry.at(cursor).value(), 5, topBarHeight - 5);
@@ -225,6 +232,9 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
     @Override public void keyReleased(KeyEvent e) {
     }
     @Override public void mouseClicked(MouseEvent mouseEvent) {
+    }
+    private CellPosition getCellCorrespondingToCoordinates(int x, int y) {
+        throw new NotYetImplemented();
     }
     @Override public void mousePressed(MouseEvent mouseEvent) {
     }
