@@ -22,6 +22,9 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
     public boolean wasEnteringData = false;
     public StringBuilder dataEntry = new StringBuilder();
     public double easter = 0;
+    private CellPosition topLeftCell = new CellPosition(0, 0);
+    int oldColNum = 100;
+    int oldRowNum = 100;
     public CellPosition cursor = new CellPosition(1, 1);
     private Graphics2D g;
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
@@ -116,6 +119,30 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         return d;
     }
     @Override public void paintComponent(Graphics graphics) {
+        int col_top = topLeftCell.col();
+        int row_top = topLeftCell.row();
+        if(cursor.col() <= topLeftCell.col()) {
+            topLeftCell = new CellPosition(topLeftCell.col() - 1, topLeftCell.row());
+            repaint();
+            return;
+        }
+        if(cursor.row() <= topLeftCell.row()) {
+            topLeftCell = new CellPosition(topLeftCell.col(), topLeftCell.row() - 1);
+            repaint();
+            return;
+        }
+        if(cursor.col() >= topLeftCell.col() + oldColNum) {
+            topLeftCell = new CellPosition(topLeftCell.col() + 1, topLeftCell.row());
+            repaint();
+            return;
+        }
+        if(cursor.row() >= topLeftCell.row() + oldRowNum) {
+            topLeftCell = new CellPosition(topLeftCell.col(), topLeftCell.row() + 1);
+            repaint();
+            return;
+        }
+        oldRowNum = 0; oldColNum = 0;
+
         g = (Graphics2D) graphics;
         super.paintComponent(g);
         String displayed;
@@ -123,44 +150,44 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         g.rotate(easter, screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         int[] colWidths = new int[100];
         int[] rowHeights = new int[100];
-        for (int col = 0; col < 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
-            for (int row = 0; row < 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
+        for (int col = col_top; col < col_top + 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
+            for (int row = row_top; row < row_top + 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
                 if (enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
                 Dimension textSize = getTextShape(displayed);
-                colWidths[col] = Math.max(colWidths[col], textSize.width);
-                rowHeights[row] = Math.max(rowHeights[row], textSize.height);
+                colWidths[col - col_top] = Math.max(colWidths[col - col_top], textSize.width);
+                rowHeights[row - row_top] = Math.max(rowHeights[row - row_top], textSize.height);
             }
         }
         int topBarHeight = Arrays.stream(rowHeights).max().getAsInt() + 10;
         int x = 0;
         int y;
-        for (int col = 0; true; col++) {
+        for (int col = col_top; true; col++) {
             x += 5;
             y = topBarHeight;
-            for (int row = 0; true; row++) {
+            for (int row = row_top; true; row++) {
                 if ((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
                 else if (selection != null && (selection.isIn(new CellPosition(col, row)) || selection.isIn(new CellPosition(col - 1, row))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
-                g.drawLine(x - 5, y, x - 5, y + rowHeights[row] + 10);
+                g.drawLine(x - 5, y, x - 5, y + rowHeights[row - row_top] + 10);
                 if (col == cursor.col() && (row == cursor.row() || row == cursor.row() + 1)) g.setColor(Color.RED);
                 else if (selection != null && (selection.isIn(new CellPosition(col, row)) || selection.isIn(new CellPosition(col, row - 1))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
-                g.drawLine(x - 5, y, x + colWidths[col] + 5, y);
+                g.drawLine(x - 5, y, x + colWidths[col - col_top] + 5, y);
                 y += 5;
-                y += rowHeights[row];
+                y += rowHeights[row - row_top];
                 g.setColor(Color.BLACK);
                 if (enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
                 g.drawString(displayed, x, y);
                 y += 5;
-                if (y >= screenSize.height) break;
+                if (y >= screenSize.height) { oldRowNum = Math.max(row - row_top, oldRowNum); break; }
             }
-            x += colWidths[col];
+            x += colWidths[col - col_top];
             x += 5;
-            if (x >= screenSize.width) break;
+            if (x >= screenSize.width) { oldColNum = Math.max(col - col_top, oldColNum); break; }
         }
         if (enteringData) g.drawString(dataEntry.toString(), 5, topBarHeight - 5);
         else g.drawString(registry.at(cursor).value(), 5, topBarHeight - 5);
