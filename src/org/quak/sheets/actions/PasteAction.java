@@ -29,8 +29,8 @@ public class PasteAction extends MyAction {
     public void actionPerformed(ActionEvent actionEvent) {
         Transferable t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this);
         try {
-            if(t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor))
-                registry.at(renderer.cursor, new LabelCell((String)t.getTransferData(DataFlavor.stringFlavor)));
+            if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor))
+                registry.at(renderer.cursor, new LabelCell((String) t.getTransferData(DataFlavor.stringFlavor)));
         } catch (UnsupportedFlavorException | IOException e) {
             throw new RuntimeException(e);
         }

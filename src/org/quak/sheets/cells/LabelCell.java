@@ -9,6 +9,9 @@ public class LabelCell extends Cell {
     public LabelCell(String displayed) {
         this.displayed = displayed;
     }
+    static LabelCell loadBody(ObjectInput in) throws IOException {
+        return new LabelCell(in.readUTF());
+    }
     @Override public String displayed() {
         return displayed;
     }
@@ -17,8 +20,5 @@ public class LabelCell extends Cell {
     }
     @Override void writeBody(ObjectOutput out) throws IOException {
         out.writeUTF(displayed);
-    }
-    static LabelCell loadBody(ObjectInput in) throws IOException {
-        return new LabelCell(in.readUTF());
     }
 }

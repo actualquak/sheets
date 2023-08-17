@@ -67,11 +67,11 @@ public class Util {
         }
     }
     public static Transferable copySelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
-        if(renderer.enteringData) return new StringSelection(renderer.dataEntry.toString());
+        if (renderer.enteringData) return new StringSelection(renderer.dataEntry.toString());
         else return new StringSelection(registry.at(renderer.cursor).value());
     }
     public static void deleteSelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
-        if(renderer.enteringData) renderer.dataEntry = new StringBuilder();
+        if (renderer.enteringData) renderer.dataEntry = new StringBuilder();
         else registry.del(renderer.cursor);
     }
 }
