@@ -15,5 +15,7 @@ public class PasteAction extends MyAction {
                 KeyEvent.VK_P);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

@@ -15,5 +15,7 @@ public class CopyAction extends MyAction {
                 KeyEvent.VK_C);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

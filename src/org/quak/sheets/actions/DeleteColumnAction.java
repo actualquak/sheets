@@ -25,6 +25,7 @@ public class DeleteColumnAction extends MyAction {
     @Override public void actionPerformed(ActionEvent actionEvent) {
         ArrayList<Integer> q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);
-        for(int c: q) registry.deleteColumn(c);
+        for (int c : q) registry.deleteColumn(c);
+        renderer.repaint();
     }
 }

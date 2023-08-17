@@ -25,6 +25,7 @@ public class DeleteRowAction extends MyAction {
     @Override public void actionPerformed(ActionEvent actionEvent) {
         ArrayList<Integer> q = Util.getSortedSelectionRows(renderer);
         Collections.reverse(q);
-        for(int r: q) registry.deleteRow(r);
+        for (int r : q) registry.deleteRow(r);
+        renderer.repaint();
     }
 }

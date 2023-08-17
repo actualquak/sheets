@@ -15,5 +15,7 @@ public class MarkAsNumberAction extends MyAction {
                 KeyEvent.VK_N);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

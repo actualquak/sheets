@@ -14,5 +14,7 @@ public class NewAction extends MyAction {
                 KeyStroke.getKeyStroke("control N"),
                 KeyEvent.VK_N);
     }
-    @Override public void actionPerformed(ActionEvent actionEvent) { SheetApplication.main(new String[]{}); }
+    @Override public void actionPerformed(ActionEvent actionEvent) {
+        SheetApplication.main(new String[]{});
+    }
 }

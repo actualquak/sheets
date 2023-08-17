@@ -10,15 +10,15 @@ public class Util {
     private static FindDialog dialog = null;
     public static String base26ButNotReally(int i) {
         StringBuilder b = new StringBuilder();
-        while(i > 0) {
+        while (i > 0) {
             int modulo = (i - 1) % 26;
-            b.append((char)('A' + modulo));
+            b.append((char) ('A' + modulo));
             i = (i - modulo) / 26;
         }
         return b.reverse().toString();
     }
     public static void showDialog(SheetRenderer context, boolean replace) {
-        if(dialog == null) dialog = new FindDialog(context);
+        if (dialog == null) dialog = new FindDialog(context);
         dialog.replaceAndShow(replace);
     }
     public static ImageIcon loadImage(String imageName) {
@@ -31,7 +31,7 @@ public class Util {
         return new ImageIcon(imageURL);
     }
     public static ArrayList<Integer> getSortedSelectionColumns(SheetRenderer renderer) {
-        if(renderer.selection != null) {
+        if (renderer.selection != null) {
             LinkedHashSet<Integer> columnDeletionMap = new LinkedHashSet<>();
             Iterator<CellPosition> it = renderer.selection.iterator();
             while (it.hasNext()) {
@@ -41,7 +41,11 @@ public class Util {
             ArrayList<Integer> q = new ArrayList<>(columnDeletionMap);
             Collections.sort(q);
             return q;
-        } else return new ArrayList<>(renderer.cursor.col());
+        } else {
+            ArrayList<Integer> l = new ArrayList<>(1);
+            l.add(renderer.cursor.col());
+            return l;
+        }
     }
     public static ArrayList<Integer> getSortedSelectionRows(SheetRenderer renderer) {
         if (renderer.selection != null) {
@@ -54,6 +58,10 @@ public class Util {
             ArrayList<Integer> q = new ArrayList<>(rowDeletionMap);
             Collections.sort(q);
             return q;
-        } else return new ArrayList<>(renderer.cursor.row());
+        } else {
+            ArrayList<Integer> l = new ArrayList<>(1);
+            l.add(renderer.cursor.row());
+            return l;
+        }
     }
 }

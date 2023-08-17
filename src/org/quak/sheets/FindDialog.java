@@ -7,8 +7,8 @@ public class FindDialog extends JDialog {
     private final JLabel replaceLabel = new JLabel("Replace: ");
     private final JTextField findTextField = new JTextField();
     private final JTextField replaceTextField = new JTextField();
-    private boolean replace;
     private final GroupLayout layout = new GroupLayout(this.getContentPane());
+    private boolean replace;
     public FindDialog(SheetRenderer context) {
         super(context.frame, "Find/Replace");
 

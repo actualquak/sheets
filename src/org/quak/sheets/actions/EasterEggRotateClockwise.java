@@ -12,7 +12,8 @@ public class EasterEggRotateClockwise extends MyAction {
         this.context = context;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        context.easter += Math.PI/16;
-        if(Math.abs(context.easter) < 0.1) context.easter = 0;
+        context.easter += Math.PI / 16;
+        if (Math.abs(context.easter) < 0.1) context.easter = 0;
+        context.repaint();
     }
 }

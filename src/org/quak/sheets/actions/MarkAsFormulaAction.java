@@ -15,5 +15,7 @@ public class MarkAsFormulaAction extends MyAction {
                 KeyEvent.VK_F);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

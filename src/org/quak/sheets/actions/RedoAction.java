@@ -13,5 +13,6 @@ public class RedoAction extends MyAction {
                 KeyEvent.VK_R);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { }
+    public void actionPerformed(ActionEvent actionEvent) {
+    }
 }

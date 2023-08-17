@@ -7,21 +7,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-public class SheetRenderer extends JPanel implements KeyListener {
+public class SheetRenderer extends JPanel implements KeyListener, MouseListener {
     public final SheetFrame frame;
     private final SheetRegistry registry;
-    private Graphics2D g;
     public CellSelection selection = null;
     public boolean enteringData = false;
     public boolean wasEnteringData = false;
     public StringBuilder dataEntry = new StringBuilder();
     public double easter = 0;
     public CellPosition cursor = new CellPosition(1, 1);
+    private Graphics2D g;
     public SheetRenderer(SheetFrame frame, SheetRegistry registry) {
         this.frame = frame;
         this.registry = registry;
@@ -89,14 +91,15 @@ public class SheetRenderer extends JPanel implements KeyListener {
     private JMenuItem getMenuItem(Class<? extends MyAction> actionType, Object... args) throws IllegalArgumentException {
         // Today's episode of the idiocy show - what lengths will our loveable idiot Stanley go to avoid typing
         // which doesn't actually save him any typing? QUITE FAR IT SEEMS.
-        JMenuItem menuItem = new JMenuItem(); Object c;
+        JMenuItem menuItem = new JMenuItem();
+        Object c;
         Constructor<?>[] constructors = actionType.getConstructors();
         Constructor<?> theOneTrueConstructor = null;
         for (Constructor<?> constructor : constructors) {
             theOneTrueConstructor = constructor;
             if (theOneTrueConstructor.getGenericParameterTypes().length == args.length) break;
         }
-        if(theOneTrueConstructor == null) throw new IllegalArgumentException();
+        if (theOneTrueConstructor == null) throw new IllegalArgumentException();
         try {
             theOneTrueConstructor.setAccessible(true);
             c = theOneTrueConstructor.newInstance(args);
@@ -120,9 +123,9 @@ public class SheetRenderer extends JPanel implements KeyListener {
         g.rotate(easter, screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         int[] colWidths = new int[100];
         int[] rowHeights = new int[100];
-        for(int col = 0; col < 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
-            for(int row = 0; row < 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
-                if(enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
+        for (int col = 0; col < 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
+            for (int row = 0; row < 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
+                if (enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
                 Dimension textSize = getTextShape(displayed);
                 colWidths[col] = Math.max(colWidths[col], textSize.width);
@@ -130,27 +133,26 @@ public class SheetRenderer extends JPanel implements KeyListener {
             }
         }
         int topBarHeight = Arrays.stream(rowHeights).max().getAsInt() + 10;
-        int x = 0; int y;
+        int x = 0;
+        int y;
         for (int col = 0; true; col++) {
             x += 5;
             y = topBarHeight;
             for (int row = 0; true; row++) {
-                if((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
-                else if(selection != null && (selection.isIn(new CellPosition(col, row))
-                        || selection.isIn(new CellPosition(col - 1, row))))
+                if ((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
+                else if (selection != null && (selection.isIn(new CellPosition(col, row)) || selection.isIn(new CellPosition(col - 1, row))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
                 g.drawLine(x - 5, y, x - 5, y + rowHeights[row] + 10);
-                if(col == cursor.col() && (row == cursor.row() || row == cursor.row() + 1)) g.setColor(Color.RED);
-                else if(selection != null && (selection.isIn(new CellPosition(col, row))
-                        || selection.isIn(new CellPosition(col, row - 1))))
+                if (col == cursor.col() && (row == cursor.row() || row == cursor.row() + 1)) g.setColor(Color.RED);
+                else if (selection != null && (selection.isIn(new CellPosition(col, row)) || selection.isIn(new CellPosition(col, row - 1))))
                     g.setColor(Color.GREEN);
                 else g.setColor(Color.BLACK);
                 g.drawLine(x - 5, y, x + colWidths[col] + 5, y);
                 y += 5;
                 y += rowHeights[row];
                 g.setColor(Color.BLACK);
-                if(enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
+                if (enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
                 g.drawString(displayed, x, y);
                 y += 5;
@@ -160,7 +162,7 @@ public class SheetRenderer extends JPanel implements KeyListener {
             x += 5;
             if (x >= screenSize.width) break;
         }
-        if(enteringData) g.drawString(dataEntry.toString(), 5, topBarHeight - 5);
+        if (enteringData) g.drawString(dataEntry.toString(), 5, topBarHeight - 5);
         else g.drawString(registry.at(cursor).value(), 5, topBarHeight - 5);
     }
     private void registerAction(String code, Action action) {
@@ -169,15 +171,18 @@ public class SheetRenderer extends JPanel implements KeyListener {
     }
     @Override public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
-        if(c == KeyEvent.CHAR_UNDEFINED || c == '\n' || c == '\b') return;
-        if(!enteringData) dataEntry = new StringBuilder();
+        if (c == KeyEvent.CHAR_UNDEFINED || (Character.isISOControl(c) && c != '\b') || (e.getModifiersEx() & (KeyEvent.ALT_DOWN_MASK | KeyEvent.CTRL_DOWN_MASK)) != 0)
+            return;
+        if (!enteringData) dataEntry = new StringBuilder();
         enteringData = true;
-        dataEntry.append(c);
+        if (c == '\b') {
+            if (dataEntry.length() > 0) dataEntry.setLength(dataEntry.length() - 1);
+        } else dataEntry.append(c);
         repaint();
     }
     @Override public void keyPressed(KeyEvent e) {
-        if(!enteringData) return;
-        switch(e.getKeyCode()) {
+        if (!enteringData) return;
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP -> {
                 enteringData = false;
                 registry.at(cursor, new LabelCell(dataEntry.toString()));
@@ -188,11 +193,18 @@ public class SheetRenderer extends JPanel implements KeyListener {
                 registry.at(cursor, new LabelCell(dataEntry.toString()));
                 repaint();
             }
-            case KeyEvent.VK_BACK_SPACE -> {
-                if(dataEntry.length() > 0) dataEntry.setLength(dataEntry.length() - 1);
-                repaint();
-            }
         }
     }
-    @Override public void keyReleased(KeyEvent e) { }
+    @Override public void keyReleased(KeyEvent e) {
+    }
+    @Override public void mouseClicked(MouseEvent mouseEvent) {
+    }
+    @Override public void mousePressed(MouseEvent mouseEvent) {
+    }
+    @Override public void mouseReleased(MouseEvent mouseEvent) {
+    }
+    @Override public void mouseEntered(MouseEvent mouseEvent) {
+    }
+    @Override public void mouseExited(MouseEvent mouseEvent) {
+    }
 }

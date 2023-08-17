@@ -14,5 +14,7 @@ public class SaveAsAction extends MyAction {
                 KeyStroke.getKeyStroke("control alt S"),
                 KeyEvent.VK_S);
     }
-    @Override public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    @Override public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

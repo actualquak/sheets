@@ -15,5 +15,7 @@ public class MarkAsTextAction extends MyAction {
                 KeyEvent.VK_T);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { throw new NotYetImplemented(); }
+    public void actionPerformed(ActionEvent actionEvent) {
+        throw new NotYetImplemented();
+    }
 }

@@ -13,5 +13,6 @@ public class UndoAction extends MyAction {
                 KeyEvent.VK_U);
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) { }
+    public void actionPerformed(ActionEvent actionEvent) {
+    }
 }

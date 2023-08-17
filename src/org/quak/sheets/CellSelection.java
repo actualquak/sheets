@@ -39,10 +39,10 @@ class AreaSelection extends CellSelection {
     }
     @Override public Iterator<CellPosition> iterator() {
         ArrayList<CellPosition> positions = new ArrayList<>();
-        int rowIncrease = -(int)Math.signum(first.row() - second.row());
-        int colIncrease = -(int)Math.signum(first.col() - second.col());
-        for(int x = first.col(); x != second.col() + colIncrease; x += colIncrease) {
-            for(int y = first.row(); y != second.row() + rowIncrease; y += rowIncrease) {
+        int rowIncrease = -(int) Math.signum(first.row() - second.row());
+        int colIncrease = -(int) Math.signum(first.col() - second.col());
+        for (int x = first.col(); x != second.col() + colIncrease; x += colIncrease) {
+            for (int y = first.row(); y != second.row() + rowIncrease; y += rowIncrease) {
                 positions.add(new CellPosition(x, y));
             }
         }
@@ -55,12 +55,20 @@ class IndividualSelection extends CellSelection {
     public IndividualSelection(ArrayList<CellPosition> cells) {
         positions = cells;
     }
-    @Override public CellSelection expandDown() { return this; }
-    @Override public CellSelection expandLeft() { return this; }
-    @Override public CellSelection expandRight() { return this; }
-    @Override public CellSelection expandUp() { return this; }
+    @Override public CellSelection expandDown() {
+        return this;
+    }
+    @Override public CellSelection expandLeft() {
+        return this;
+    }
+    @Override public CellSelection expandRight() {
+        return this;
+    }
+    @Override public CellSelection expandUp() {
+        return this;
+    }
     @Override public CellSelection flipCell(CellPosition cell) {
-        if(positions.contains(cell)) positions.remove(cell);
+        if (positions.contains(cell)) positions.remove(cell);
         else positions.add(cell);
         return this;
     }
@@ -73,6 +81,12 @@ class IndividualSelection extends CellSelection {
 }
 
 public abstract class CellSelection {
+    public static CellSelection makeSelection(CellPosition cursor) {
+        return new AreaSelection(cursor, cursor);
+    }
+    public static CellSelection makeSelection(CellPosition first, CellPosition second) {
+        return new AreaSelection(first, second);
+    }
     public abstract CellSelection expandDown();
     public abstract CellSelection expandLeft();
     public abstract CellSelection expandRight();
@@ -80,10 +94,4 @@ public abstract class CellSelection {
     public abstract CellSelection flipCell(CellPosition cell);
     public abstract boolean isIn(CellPosition cell);
     public abstract Iterator<CellPosition> iterator();
-    public static CellSelection makeSelection(CellPosition cursor) {
-        return new AreaSelection(cursor, cursor);
-    }
-    public static CellSelection makeSelection(CellPosition first, CellPosition second) {
-        return new AreaSelection(first, second);
-    }
 }
