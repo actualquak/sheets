@@ -77,6 +77,7 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         cellMenu.add(new JSeparator());
         menuBar.add(cellMenu);
 
+        registerAction("DELETE", new DeleteAction(this, registry));
         registerAction("DOWN", new DownArrowAction(this));
         registerAction("ENTER", new EnterAction(this));
         registerAction("LEFT", new LeftArrowAction(this));
