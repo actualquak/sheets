@@ -6,7 +6,6 @@ import org.quak.sheets.Util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -23,9 +22,10 @@ public class CutAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        Transferable t = Util.copySelectionFromSheet(renderer, registry);
-        Util.deleteSelectionFromSheet(renderer, registry);
+        var t = Util.copySelectionFromSheet(renderer, registry);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(t, null);
+        Util.deleteSelectionFromSheet(renderer, registry);
+        renderer.selection = null;
         renderer.repaint();
     }
 }

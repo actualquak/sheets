@@ -16,6 +16,9 @@ public abstract class Cell {
         if (type.isInstance(this)) return type.cast(this);
         throw new IllegalArgumentException();
     }
+    public static Cell make(String text) {
+        return new LabelCell(text);
+    }
     public abstract String displayed();
     public abstract String value();
     public void save(ObjectOutput out) throws IOException {

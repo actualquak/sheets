@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Rectangle2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -33,9 +32,9 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
 
         addKeyListener(this);
 
-        JMenuBar menuBar = new JMenuBar();
+        var menuBar = new JMenuBar();
 
-        JMenu fileMenu = new JMenu("File");
+        var fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         fileMenu.add(getMenuItem(NewAction.class));
         fileMenu.add(getMenuItem(OpenAction.class));
@@ -45,7 +44,7 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         fileMenu.add(getMenuItem(CloseAllAction.class));
         menuBar.add(fileMenu);
 
-        JMenu editMenu = new JMenu("Edit");
+        var editMenu = new JMenu("Edit");
         editMenu.setMnemonic(KeyEvent.VK_E);
         editMenu.add(getMenuItem(UndoAction.class));
         editMenu.add(getMenuItem(RedoAction.class));
@@ -58,7 +57,7 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         editMenu.add(getMenuItem(ReplaceAction.class, this));
         menuBar.add(editMenu);
 
-        JMenu cellMenu = new JMenu("Cell");
+        var cellMenu = new JMenu("Cell");
         cellMenu.setMnemonic(KeyEvent.VK_C);
         cellMenu.add(getMenuItem(InsertColumnLeftAction.class, this, registry));
         cellMenu.add(getMenuItem(InsertColumnRightAction.class, this, registry));
@@ -68,7 +67,7 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         cellMenu.add(getMenuItem(DeleteColumnAction.class, this, registry));
         cellMenu.add(getMenuItem(DeleteRowAction.class, this, registry));
         cellMenu.add(new JSeparator());
-        JMenu markMenu = new JMenu("Mark as...");
+        var markMenu = new JMenu("Mark as...");
         markMenu.setMnemonic(KeyEvent.VK_M);
         markMenu.add(getMenuItem(MarkAsFormulaAction.class));
         markMenu.add(getMenuItem(MarkAsTextAction.class));
@@ -95,11 +94,11 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
     private JMenuItem getMenuItem(Class<? extends MyAction> actionType, Object... args) throws IllegalArgumentException {
         // Today's episode of the idiocy show - what lengths will our loveable idiot Stanley go to avoid typing
         // which doesn't actually save him any typing? QUITE FAR IT SEEMS.
-        JMenuItem menuItem = new JMenuItem();
+        var menuItem = new JMenuItem();
         Object c;
-        Constructor<?>[] constructors = actionType.getConstructors();
+        var constructors = actionType.getConstructors();
         Constructor<?> theOneTrueConstructor = null;
-        for (Constructor<?> constructor : constructors) {
+        for (var constructor : constructors) {
             theOneTrueConstructor = constructor;
             if (theOneTrueConstructor.getGenericParameterTypes().length == args.length) break;
         }
@@ -114,14 +113,14 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         return menuItem;
     }
     private Dimension getTextShape(String text) {
-        Rectangle2D d2d = g.getFontMetrics().getStringBounds(text, g);
-        Dimension d = new Dimension();
+        var d2d = g.getFontMetrics().getStringBounds(text, g);
+        var d = new Dimension();
         d.setSize(d2d.getWidth(), d2d.getHeight());
         return d;
     }
     @Override public void paintComponent(Graphics graphics) {
-        int col_top = topLeftCell.col();
-        int row_top = topLeftCell.row();
+        var col_top = topLeftCell.col();
+        var row_top = topLeftCell.row();
         if (cursor.col() <= topLeftCell.col()) {
             topLeftCell = new CellPosition(topLeftCell.col() - 1, topLeftCell.row());
             repaint();
@@ -148,26 +147,27 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         g = (Graphics2D) graphics;
         super.paintComponent(g);
         String displayed;
-        Dimension screenSize = getSize();
+        var screenSize = getSize();
         g.rotate(easter, screenSize.getWidth() / 2, screenSize.getHeight() / 2);
-        int[] colWidths = new int[100];
-        int[] rowHeights = new int[100];
-        for (int col = col_top; col < col_top + 100; col++) { // TODO maybe 100 columns is the wrong number. Also scrolling
-            for (int row = row_top; row < row_top + 100; row++) { // TODO maybe 100 rows is the wrong number. Also scrolling
+        var colWidths = new int[100];
+        var rowHeights = new int[100];
+        // hopefully nobody's screen is so big that it displays more than 100 columns
+        for (var col = col_top; col < col_top + 100; col++) {
+            for (var row = row_top; row < row_top + 100; row++) {
                 if (enteringData && col == cursor.col() && row == cursor.row()) displayed = dataEntry.toString();
                 else displayed = registry.at(new CellPosition(col, row)).displayed();
-                Dimension textSize = getTextShape(displayed);
+                var textSize = getTextShape(displayed);
                 colWidths[col - col_top] = Math.max(colWidths[col - col_top], textSize.width);
                 rowHeights[row - row_top] = Math.max(rowHeights[row - row_top], textSize.height);
             }
         }
-        int topBarHeight = Arrays.stream(rowHeights).max().getAsInt() + 10;
-        int x = 0;
+        var topBarHeight = Arrays.stream(rowHeights).max().getAsInt() + 10;
+        var x = 0;
         int y;
-        for (int col = col_top; true; col++) {
+        for (var col = col_top; true; col++) {
             x += 5;
             y = topBarHeight;
-            for (int row = row_top; true; row++) {
+            for (var row = row_top; true; row++) {
                 if ((col == cursor.col() || col == cursor.col() + 1) && row == cursor.row()) g.setColor(Color.RED);
                 else if (selection != null && (selection.isIn(new CellPosition(col, row)) || selection.isIn(new CellPosition(col - 1, row))))
                     g.setColor(Color.GREEN);
@@ -205,7 +205,7 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         getActionMap().put(code, action);
     }
     @Override public void keyTyped(KeyEvent e) {
-        char c = e.getKeyChar();
+        var c = e.getKeyChar();
         if (c == KeyEvent.CHAR_UNDEFINED || (Character.isISOControl(c) && c != '\b') || (e.getModifiersEx() & (KeyEvent.ALT_DOWN_MASK | KeyEvent.CTRL_DOWN_MASK)) != 0)
             return;
         if (!enteringData) dataEntry = new StringBuilder();

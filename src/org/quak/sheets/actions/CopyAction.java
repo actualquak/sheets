@@ -23,5 +23,7 @@ public class CopyAction extends MyAction {
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(Util.copySelectionFromSheet(renderer, registry), null);
+        renderer.selection = null;
+        renderer.repaint();
     }
 }

@@ -16,6 +16,6 @@ public class CloseAllAction extends MyAction {
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        for (SheetFrame frame : SheetFrame.frames) frame.dispose();
+        for (var frame : SheetFrame.frames) frame.dispose();
     }
 }

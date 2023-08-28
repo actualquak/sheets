@@ -7,7 +7,6 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class InsertRowBelowAction extends MyAction {
@@ -23,7 +22,7 @@ public class InsertRowBelowAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        ArrayList<Integer> q = Util.getSortedSelectionRows(renderer);
+        var q = Util.getSortedSelectionRows(renderer);
         Collections.reverse(q);
         registry.insertRowBelow(q.get(0));
     }

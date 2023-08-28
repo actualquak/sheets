@@ -7,7 +7,6 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 public class InsertColumnLeftAction extends MyAction {
     private final SheetRenderer renderer;
@@ -22,7 +21,7 @@ public class InsertColumnLeftAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        ArrayList<Integer> q = Util.getSortedSelectionColumns(renderer);
+        var q = Util.getSortedSelectionColumns(renderer);
         registry.insertColumnRight(q.get(0) - 1);
     }
 }

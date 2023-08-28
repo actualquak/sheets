@@ -7,7 +7,6 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class InsertColumnRightAction extends MyAction {
@@ -23,7 +22,7 @@ public class InsertColumnRightAction extends MyAction {
         this.renderer = renderer;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        ArrayList<Integer> q = Util.getSortedSelectionColumns(renderer);
+        var q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);
         registry.insertColumnRight(q.get(0));
     }

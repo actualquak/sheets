@@ -33,4 +33,10 @@ public class CellPosition {
     public void row(int row) {
         this.row = row;
     }
+    public CellPosition sub(CellPosition other) {
+        return new CellPosition(col - other.col, row - other.row);
+    }
+    public CellPosition sum(CellPosition other) {
+        return new CellPosition(col + other.col, row + other.row);
+    }
 }

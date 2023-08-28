@@ -27,7 +27,7 @@ class AreaSelection extends CellSelection {
         return this;
     }
     @Override public CellSelection flipCell(CellPosition cell) {
-        ArrayList<CellPosition> cells = new ArrayList<>();
+        var cells = new ArrayList<CellPosition>();
         iterator().forEachRemaining(cells::add);
         return new IndividualSelection(cells).flipCell(cell);
     }
@@ -38,11 +38,13 @@ class AreaSelection extends CellSelection {
                 || first.row() >= cell.row() && cell.row() >= second.row());
     }
     @Override public Iterator<CellPosition> iterator() {
-        ArrayList<CellPosition> positions = new ArrayList<>();
-        int rowIncrease = -(int) Math.signum(first.row() - second.row());
-        int colIncrease = -(int) Math.signum(first.col() - second.col());
-        for (int x = first.col(); x != second.col() + colIncrease; x += colIncrease) {
-            for (int y = first.row(); y != second.row() + rowIncrease; y += rowIncrease) {
+        var positions = new ArrayList<CellPosition>();
+        var rowIncrease = -(int) Math.signum(first.row() - second.row());
+        if(rowIncrease == 0) rowIncrease = 1;
+        var colIncrease = -(int) Math.signum(first.col() - second.col());
+        if(colIncrease == 0) colIncrease = 1;
+        for (var x = first.col(); x != second.col() + colIncrease; x += colIncrease) {
+            for (var y = first.row(); y != second.row() + rowIncrease; y += rowIncrease) {
                 positions.add(new CellPosition(x, y));
             }
         }

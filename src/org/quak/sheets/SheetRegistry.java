@@ -29,7 +29,7 @@ public class SheetRegistry {
         cells.remove(pos);
     }
     public void deleteColumn(int col) {
-        HashMap<CellPosition, Cell> map = new HashMap<>();
+        var map = new HashMap<CellPosition, Cell>();
         cells.forEach((pos, cell) -> {
             if (pos.col() < col) map.put(pos, cell);
             else if (pos.col() > col) map.put(new CellPosition(pos.col() - 1, pos.row()), cell);
@@ -37,7 +37,7 @@ public class SheetRegistry {
         cells = map;
     }
     public void deleteRow(int row) {
-        HashMap<CellPosition, Cell> map = new HashMap<>();
+        var map = new HashMap<CellPosition, Cell>();
         cells.forEach((pos, cell) -> {
             if (pos.row() < row) map.put(pos, cell);
             else if (pos.row() > row) map.put(new CellPosition(pos.col(), pos.row() - 1), cell);

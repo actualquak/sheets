@@ -7,7 +7,6 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class DeleteColumnAction extends MyAction {
@@ -23,7 +22,7 @@ public class DeleteColumnAction extends MyAction {
         this.renderer = renderer;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        ArrayList<Integer> q = Util.getSortedSelectionColumns(renderer);
+        var q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);
         for (int c : q) registry.deleteColumn(c);
         renderer.repaint();
