@@ -7,6 +7,6 @@ public class SheetApplication {
         SheetFrame frame;
         if(args.length > 0) frame = new SheetFrame(SheetRegistry.load(new File(args[0])));
         else frame = new SheetFrame();
-        frame.setVisible(true);
+        if(frame.registry != null) frame.setVisible(true);
     }
 }

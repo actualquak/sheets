@@ -1,8 +1,8 @@
 package org.quak.sheets.cells;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
-import java.io.ObjectOutput;
 
 public class LabelCell extends Cell {
     final String displayed;
@@ -18,7 +18,7 @@ public class LabelCell extends Cell {
     @Override public String value() {
         return displayed;
     }
-    @Override void writeBody(ObjectOutput out) throws IOException {
-        out.writeUTF(displayed);
+    @Override public void write(DataOutputStream ds) throws IOException {
+        ds.writeUTF(displayed);
     }
 }

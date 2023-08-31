@@ -1,8 +1,8 @@
 package org.quak.sheets.cells;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
-import java.io.ObjectOutput;
 
 public abstract class Cell {
     public static Cell load(ObjectInput in) throws IOException {
@@ -17,10 +17,5 @@ public abstract class Cell {
     }
     public abstract String displayed();
     public abstract String value();
-    public void save(ObjectOutput out) throws IOException {
-        if (getClass().equals(DummyCell.class)) out.writeInt(0);
-        else if (getClass().equals(LabelCell.class)) out.writeInt(1);
-        writeBody(out);
-    }
-    abstract void writeBody(ObjectOutput out) throws IOException;
+    public abstract void write(DataOutputStream ds) throws IOException;
 }

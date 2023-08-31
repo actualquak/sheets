@@ -21,8 +21,7 @@ public class SaveAsAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        var fileName = Util.selectSaveFileName(renderer, registry);
-        registry.fileName.set(fileName);
-        registry.save();
+        var file = Util.selectSaveFileName(renderer, registry);
+        registry.save(file);
     }
 }

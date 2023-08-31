@@ -1,7 +1,9 @@
 package org.quak.sheets.cells;
 
+import org.quak.sheets.NotYetImplemented;
+
+import java.io.DataOutputStream;
 import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DummyCell extends Cell {
@@ -15,6 +17,7 @@ public class DummyCell extends Cell {
     @Override public String value() {
         return String.valueOf(dummyNum);
     }
-    @Override void writeBody(ObjectOutput out) {
+    @Override public void write(DataOutputStream ds) {
+        throw new NotYetImplemented();
     }
 }
