@@ -2,17 +2,13 @@ package org.quak.sheets.cells;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
+import java.util.regex.Pattern;
 
 public abstract class Cell {
-    public static Cell load(ObjectInput in) throws IOException {
-        return switch (in.readInt()) {
-            case 0 -> DummyCell.loadBody(in);
-            case 1 -> LabelCell.loadBody(in);
-            default -> throw new IOException("Invalid formatting");
-        };
-    }
+    private static final Pattern numberRegex = Pattern.compile("[+-]?(\\d+(\\.\\d+)?|\\.\\d+)([eE][+-]?\\d+)?");
     public static Cell make(String text) {
+        var numberMatcher = numberRegex.matcher(text);
+        if(numberMatcher.matches()) try { return new NumberCell(text); } catch (NumberFormatException ignored) { }
         return new LabelCell(text);
     }
     public abstract String displayed();

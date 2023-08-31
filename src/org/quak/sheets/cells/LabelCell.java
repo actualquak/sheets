@@ -1,16 +1,16 @@
 package org.quak.sheets.cells;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
 
 public class LabelCell extends Cell {
     final String displayed;
     public LabelCell(String displayed) {
         this.displayed = displayed;
     }
-    static LabelCell loadBody(ObjectInput in) throws IOException {
-        return new LabelCell(in.readUTF());
+    public static LabelCell load(DataInputStream ds) throws IOException {
+        return new LabelCell(ds.readUTF());
     }
     @Override public String displayed() {
         return displayed;

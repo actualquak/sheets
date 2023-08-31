@@ -1,6 +1,7 @@
 package org.quak.sheets;
 
 import org.quak.sheets.actions.*;
+import org.quak.sheets.cells.Cell;
 import org.quak.sheets.cells.LabelCell;
 
 import javax.swing.*;
@@ -223,7 +224,7 @@ public class SheetRenderer extends JPanel implements KeyListener {
             case KeyEvent.VK_ENTER -> {
                 enteringData = false;
                 wasEnteringData = true;
-                registry.at(cursor, new LabelCell(dataEntry.toString()));
+                registry.at(cursor, Cell.make(dataEntry.toString()));
                 repaint();
             }
         }

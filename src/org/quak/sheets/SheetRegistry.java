@@ -25,6 +25,7 @@ public class SheetRegistry {
     public void at(CellPosition pos, Cell cell) {
         if (pos.col() == 0 || pos.row() == 0) return;
         cells.put(pos, cell);
+        saved.set(false);
     }
     public void del(CellPosition pos) {
         cells.remove(pos);
