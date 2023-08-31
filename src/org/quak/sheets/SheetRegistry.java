@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 public class SheetRegistry {
     private HashMap<CellPosition, Cell> cells = new HashMap<>();
+    public final QUpdater<String> fileName = new QUpdater<>("Untitled");
+    public final QUpdater<Boolean> saved = new QUpdater<>(false);
     public SheetRegistry() {
     }
     public static SheetRegistry load(ByteArrayInputStream bais) {
