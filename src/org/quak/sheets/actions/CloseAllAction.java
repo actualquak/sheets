@@ -8,11 +8,11 @@ import java.awt.event.KeyEvent;
 
 public class CloseAllAction extends MyAction {
     @SuppressWarnings("unused") public CloseAllAction() {
-        super("Close",
+        super("Close All",
                 null,
-                "Close the current file",
+                "Close all files",
                 KeyStroke.getKeyStroke("control shift W"),
-                KeyEvent.VK_C);
+                KeyEvent.VK_A);
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {

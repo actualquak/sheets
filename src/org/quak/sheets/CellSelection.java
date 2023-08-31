@@ -86,14 +86,15 @@ public abstract class CellSelection {
     public static CellSelection makeSelection(CellPosition cursor) {
         return new AreaSelection(cursor, cursor);
     }
-    public static CellSelection makeSelection(CellPosition first, CellPosition second) {
+    @SuppressWarnings("unused") public static CellSelection makeSelection(CellPosition first, CellPosition second) {
+        // left in for mouse support
         return new AreaSelection(first, second);
     }
     public abstract CellSelection expandDown();
     public abstract CellSelection expandLeft();
     public abstract CellSelection expandRight();
     public abstract CellSelection expandUp();
-    public abstract CellSelection flipCell(CellPosition cell);
+    @SuppressWarnings("unused") public abstract CellSelection flipCell(CellPosition cell); // left in for mouse support
     public abstract boolean isIn(CellPosition cell);
     public abstract Iterator<CellPosition> iterator();
 }

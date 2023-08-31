@@ -5,19 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 // arrgghhh
-@SuppressWarnings("ALL") public class SheetFrame extends JFrame implements QUpdatable {
+@SuppressWarnings({"unchecked", "rawtypes"}) public class SheetFrame extends JFrame implements QUpdatable {
     public static final List<SheetFrame> frames = new ArrayList<>();
-    SheetRegistry reg = new SheetRegistry();
+    private final SheetRegistry registry;
     public SheetFrame() {
-        reg.fileName.addUpdatable(this);
-        reg.saved.addUpdatable(this);
+        this(new SheetRegistry());
+    }
+    public SheetFrame(SheetRegistry registry) {
+        this.registry = registry;
+        registry.fileName.addUpdatable(this);
+        registry.saved.addUpdatable(this);
         frames.add(this);
         setSize(300, 300);
-        setContentPane(new SheetRenderer(this, reg));
-        setTitle("Sheets - " + reg.fileName.get() + (reg.saved.get() ? "" : "*"));
+        setContentPane(new SheetRenderer(this, registry));
+        if(registry.fileName.get() == null) setTitle("Sheets - Untitled*");
+        else setTitle("Sheets - " + registry.fileName.get().getName() + (registry.saved.get() ? "" : "*"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     @Override public void qupdate(Object q) {
-        setTitle("Sheets - " + reg.fileName.get() + (reg.saved.get() ? "" : "*"));
+        if(registry.fileName.get() == null) setTitle("Sheets - Untitled*");
+        else setTitle("Sheets - " + registry.fileName.get().getName() + (registry.saved.get() ? "" : "*"));
     }
 }

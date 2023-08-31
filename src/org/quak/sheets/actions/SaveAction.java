@@ -1,21 +1,31 @@
 package org.quak.sheets.actions;
 
-import org.quak.sheets.NotYetImplemented;
+import org.quak.sheets.SheetRegistry;
+import org.quak.sheets.SheetRenderer;
+import org.quak.sheets.Util;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class SaveAction extends MyAction {
-    @SuppressWarnings("unused") public SaveAction() {
+    final SheetRenderer renderer;
+    final SheetRegistry registry;
+    @SuppressWarnings("unused") public SaveAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Save",
-                null,
-                "Save the current file",
-                KeyStroke.getKeyStroke("control S"),
-                KeyEvent.VK_T);
+            null,
+            "Save the current file",
+            KeyStroke.getKeyStroke("control S"),
+            KeyEvent.VK_T);
+        this.renderer = renderer;
+        this.registry = registry;
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        throw new NotYetImplemented();
+        if(registry.fileName.get() == null) {
+            var fileName = Util.selectSaveFileName(renderer, registry);
+            registry.fileName.set(fileName);
+        }
+        registry.save();
     }
 }

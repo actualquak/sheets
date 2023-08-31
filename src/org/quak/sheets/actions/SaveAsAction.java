@@ -1,8 +1,8 @@
 package org.quak.sheets.actions;
 
-import org.quak.sheets.NotYetImplemented;
 import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
+import org.quak.sheets.Util;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,12 +15,14 @@ public class SaveAsAction extends MyAction {
         super("Save as...",
                 null,
                 "Save the current file as",
-                KeyStroke.getKeyStroke("control alt S"),
+                KeyStroke.getKeyStroke("control shift S"),
                 KeyEvent.VK_S);
         this.renderer = renderer;
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        throw new NotYetImplemented();
+        var fileName = Util.selectSaveFileName(renderer, registry);
+        registry.fileName.set(fileName);
+        registry.save();
     }
 }

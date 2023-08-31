@@ -7,13 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-public class SheetRenderer extends JPanel implements KeyListener, MouseListener {
+public class SheetRenderer extends JPanel implements KeyListener {
     public final SheetFrame frame;
     private final SheetRegistry registry;
     public CellSelection selection = null;
@@ -37,9 +35,9 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         var fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         fileMenu.add(getMenuItem(NewAction.class));
-        fileMenu.add(getMenuItem(OpenAction.class));
-        fileMenu.add(getMenuItem(SaveAction.class));
-        fileMenu.add(getMenuItem(SaveAsAction.class));
+        fileMenu.add(getMenuItem(OpenAction.class, this, registry));
+        fileMenu.add(getMenuItem(SaveAction.class, this, registry));
+        fileMenu.add(getMenuItem(SaveAsAction.class, this, registry));
         fileMenu.add(getMenuItem(CloseAction.class, this));
         fileMenu.add(getMenuItem(CloseAllAction.class));
         menuBar.add(fileMenu);
@@ -231,18 +229,5 @@ public class SheetRenderer extends JPanel implements KeyListener, MouseListener 
         }
     }
     @Override public void keyReleased(KeyEvent e) {
-    }
-    @Override public void mouseClicked(MouseEvent mouseEvent) {
-    }
-    private CellPosition getCellCorrespondingToCoordinates(int x, int y) {
-        throw new NotYetImplemented();
-    }
-    @Override public void mousePressed(MouseEvent mouseEvent) {
-    }
-    @Override public void mouseReleased(MouseEvent mouseEvent) {
-    }
-    @Override public void mouseEntered(MouseEvent mouseEvent) {
-    }
-    @Override public void mouseExited(MouseEvent mouseEvent) {
     }
 }

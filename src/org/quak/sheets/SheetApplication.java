@@ -1,8 +1,12 @@
 package org.quak.sheets;
 
+import java.io.File;
+
 public class SheetApplication {
     public static void main(String[] args) {
-        var frame = new SheetFrame();
+        SheetFrame frame;
+        if(args.length > 0) frame = new SheetFrame(SheetRegistry.load(new File(args[0])));
+        else frame = new SheetFrame();
         frame.setVisible(true);
     }
 }

@@ -3,7 +3,9 @@ package org.quak.sheets;
 import org.quak.sheets.cells.Cell;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.datatransfer.Transferable;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -85,5 +87,21 @@ public class Util {
     public static void deleteSelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
         if (renderer.enteringData) renderer.dataEntry = new StringBuilder();
         else registry.del(renderer.cursor);
+    }
+    public static File selectSaveFileName(SheetRenderer renderer, SheetRegistry registry) {
+        var fc = new JFileChooser();
+        var filter = new FileNameExtensionFilter("Spreadsheet files", "sheet");
+        fc.setFileFilter(filter);
+        fc.setMultiSelectionEnabled(false);
+        var returnVal = fc.showSaveDialog(renderer);
+        return returnVal == JFileChooser.APPROVE_OPTION ? fc.getSelectedFile() : null;
+    }
+    public static File openFileName(SheetRenderer renderer, SheetRegistry registry) {
+        var fc = new JFileChooser();
+        var filter = new FileNameExtensionFilter("Spreadsheet files", "sheet");
+        fc.setFileFilter(filter);
+        fc.setMultiSelectionEnabled(false);
+        var returnVal = fc.showOpenDialog(renderer);
+        return returnVal == JFileChooser.APPROVE_OPTION ? fc.getSelectedFile() : null;
     }
 }

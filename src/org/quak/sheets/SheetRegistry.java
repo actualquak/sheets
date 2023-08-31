@@ -4,18 +4,20 @@ import org.quak.sheets.cells.Cell;
 import org.quak.sheets.cells.DummyCell;
 import org.quak.sheets.cells.LabelCell;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.HashMap;
 
 public class SheetRegistry {
     private HashMap<CellPosition, Cell> cells = new HashMap<>();
-    public final QUpdater<String> fileName = new QUpdater<>("Untitled");
+    public final QUpdater<File> fileName = new QUpdater<>(null);
     public final QUpdater<Boolean> saved = new QUpdater<>(false);
     public SheetRegistry() {
     }
-    public static SheetRegistry load(ByteArrayInputStream bais) {
-        throw new NotYetImplemented();
+    public static SheetRegistry load(File f) {
+        var r = new SheetRegistry();
+        r.fileName.set(f);
+        r.saved.set(true);
+        return r;
     }
     public Cell at(CellPosition pos) {
         if (pos.col() == 0 && pos.row() == 0) return new LabelCell("@");
@@ -52,7 +54,9 @@ public class SheetRegistry {
     public void insertRowBelow(int row) {
         throw new NotYetImplemented();
     }
-    public void save(ByteArrayOutputStream baos) {
-        throw new NotYetImplemented();
+    public void save() {
+        if(fileName.get() == null) return;
+        // TODO actually save
+        saved.set(true);
     }
 }

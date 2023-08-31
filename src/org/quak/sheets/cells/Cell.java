@@ -12,10 +12,6 @@ public abstract class Cell {
             default -> throw new IOException("Invalid formatting");
         };
     }
-    public <T extends Cell> T as(Class<T> type) throws IllegalArgumentException {
-        if (type.isInstance(this)) return type.cast(this);
-        throw new IllegalArgumentException();
-    }
     public static Cell make(String text) {
         return new LabelCell(text);
     }
