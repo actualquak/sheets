@@ -1,5 +1,6 @@
 package org.quak.sheets.actions;
 
+import org.quak.sheets.CellPosition;
 import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
@@ -16,13 +17,16 @@ public class InsertColumnLeftAction extends MyAction {
         super("Insert Column Left",
                 null,
                 "Insert a column to the left of the selection",
-                KeyStroke.getKeyStroke("alt shift C"),
-                KeyEvent.VK_L);
+                KeyStroke.getKeyStroke("alt shift L"),
+                KeyEvent.VK_C);
         this.renderer = renderer;
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionColumns(renderer);
-        registry.insertColumnRight(q.get(0) - 1);
+        registry.insertColumn(q.get(0));
+        renderer.cursor = new CellPosition(renderer.cursor.col() + 1,
+                renderer.cursor.row());
+        renderer.repaint();
     }
 }

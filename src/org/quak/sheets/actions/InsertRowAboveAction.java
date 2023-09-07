@@ -1,5 +1,6 @@
 package org.quak.sheets.actions;
 
+import org.quak.sheets.CellPosition;
 import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.SheetRenderer;
 import org.quak.sheets.Util;
@@ -17,12 +18,15 @@ public class InsertRowAboveAction extends MyAction {
                 null,
                 "Insert a row above the selection",
                 KeyStroke.getKeyStroke("alt shift I"),
-                KeyEvent.VK_A);
+                KeyEvent.VK_R);
         this.renderer = renderer;
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionRows(renderer);
-        registry.insertRowBelow(q.get(0) - 1);
+        registry.insertRow(q.get(0));
+        renderer.cursor = new CellPosition(renderer.cursor.col(),
+                renderer.cursor.row() + 1);
+        renderer.repaint();
     }
 }

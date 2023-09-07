@@ -39,6 +39,7 @@ public class SheetRegistry {
                 map.put(new CellPosition(pos.col() - 1, pos.row()), cell);
         });
         cells = map;
+        saved.set(false);
     }
     public void deleteRow(int row) {
         var map = new HashMap<CellPosition, Cell>();
@@ -48,12 +49,25 @@ public class SheetRegistry {
                 map.put(new CellPosition(pos.col(), pos.row() - 1), cell);
         });
         cells = map;
+        saved.set(false);
     }
-    public void insertColumnRight(int col) {
-        throw new NotYetImplemented();
+    public void insertColumn(int col) {
+        var map = new HashMap<CellPosition, Cell>();
+        cells.forEach((pos, cell) -> {
+            if(pos.col() < col) map.put(pos, cell);
+            else map.put(new CellPosition(pos.col() + 1, pos.row()), cell);
+        });
+        cells = map;
+        saved.set(false);
     }
-    public void insertRowBelow(int row) {
-        throw new NotYetImplemented();
+    public void insertRow(int row) {
+        var map = new HashMap<CellPosition, Cell>();
+        cells.forEach((pos, cell) -> {
+            if(pos.row() < row) map.put(pos, cell);
+            else map.put(new CellPosition(pos.col(), pos.row() + 1), cell);
+        });
+        cells = map;
+        saved.set(false);
     }
     public void save(File f) {
         if(f == null) return;

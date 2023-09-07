@@ -17,14 +17,15 @@ public class InsertColumnRightAction extends MyAction {
         super("Insert Column Right",
                 null,
                 "Insert a column to the right of the selection",
-                KeyStroke.getKeyStroke("alt C"),
-                KeyEvent.VK_R);
+                KeyStroke.getKeyStroke("alt L"),
+                KeyEvent.VK_C);
         this.registry = registry;
         this.renderer = renderer;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);
-        registry.insertColumnRight(q.get(0));
+        registry.insertColumn(q.get(0) + 1);
+        renderer.repaint();
     }
 }

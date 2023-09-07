@@ -18,13 +18,14 @@ public class InsertRowBelowAction extends MyAction {
                 null,
                 "Insert a row below the selection",
                 KeyStroke.getKeyStroke("alt I"),
-                KeyEvent.VK_B);
+                KeyEvent.VK_R);
         this.renderer = renderer;
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionRows(renderer);
         Collections.reverse(q);
-        registry.insertRowBelow(q.get(0));
+        registry.insertRow(q.get(0) + 1);
+        renderer.repaint();
     }
 }
