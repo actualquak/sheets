@@ -75,11 +75,11 @@ public class Util {
 
             for(var it = renderer.selection.iterator(); it.hasNext(); ) {
                 var next = it.next();
-                if(next.equals(renderer.cursor) && renderer.enteringData) dataList.add(next.sub(top), Cell.make(renderer.dataEntry.toString()));
+                if(next.equals(renderer.cursor) && renderer.enteringData) dataList.add(next.sub(top), Cell.make(renderer.dataEntry.toString(), next.sub(top)));
                 else dataList.add(next.sub(top), registry.at(next));
             }
         }
-        else if(renderer.enteringData) dataList.add(renderer.cursor.sub(renderer.cursor), Cell.make(renderer.dataEntry.toString()));
+        else if(renderer.enteringData) dataList.add(renderer.cursor.sub(renderer.cursor), Cell.make(renderer.dataEntry.toString(), renderer.cursor.sub(renderer.cursor)));
         else dataList.add(renderer.cursor.sub(renderer.cursor), registry.at(renderer.cursor));
 
         return new CellTransferable(dataList);

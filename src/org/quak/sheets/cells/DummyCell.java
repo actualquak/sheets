@@ -9,13 +9,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DummyCell extends Cell {
     final int dummyNum = ThreadLocalRandom.current().nextInt(0, 100);
     static DummyCell loadBody(ObjectInput in) {
-        return new DummyCell();
+        throw new NotYetImplemented();
     }
     @Override public String displayed() {
-        return String.valueOf(dummyNum);
+        return "";
     }
     @Override public String value() {
-        return String.valueOf(dummyNum);
+        return "";
     }
     @Override public void write(DataOutputStream ds) {
         throw new NotYetImplemented();

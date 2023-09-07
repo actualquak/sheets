@@ -2,7 +2,6 @@ package org.quak.sheets;
 
 import org.quak.sheets.actions.*;
 import org.quak.sheets.cells.Cell;
-import org.quak.sheets.cells.LabelCell;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,7 +148,9 @@ public class SheetRenderer extends JPanel implements KeyListener {
         var screenSize = getSize();
         g.rotate(easter, screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         var colWidths = new int[100];
+        Arrays.fill(colWidths, 20);
         var rowHeights = new int[100];
+        Arrays.fill(rowHeights, 10);
         // hopefully nobody's screen is so big that it displays more than 100 columns
         for (var col = col_top; col < col_top + 100; col++) {
             for (var row = row_top; row < row_top + 100; row++) {
@@ -219,12 +220,12 @@ public class SheetRenderer extends JPanel implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP -> {
                 enteringData = false;
-                registry.at(cursor, new LabelCell(dataEntry.toString()));
+                registry.at(cursor, Cell.make(dataEntry.toString(), cursor));
             }
             case KeyEvent.VK_ENTER -> {
                 enteringData = false;
                 wasEnteringData = true;
-                registry.at(cursor, Cell.make(dataEntry.toString()));
+                registry.at(cursor, Cell.make(dataEntry.toString(), cursor));
                 repaint();
             }
         }
