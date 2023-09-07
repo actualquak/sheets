@@ -67,9 +67,9 @@ public class SheetRenderer extends JPanel implements KeyListener {
         cellMenu.add(new JSeparator());
         var markMenu = new JMenu("Mark as...");
         markMenu.setMnemonic(KeyEvent.VK_M);
-        markMenu.add(getMenuItem(MarkAsFormulaAction.class));
-        markMenu.add(getMenuItem(MarkAsTextAction.class));
-        markMenu.add(getMenuItem(MarkAsNumberAction.class));
+        markMenu.add(getMenuItem(MarkAsFormulaAction.class, this, registry));
+        markMenu.add(getMenuItem(MarkAsTextAction.class, this, registry));
+        markMenu.add(getMenuItem(MarkAsNumberAction.class, this, registry));
         cellMenu.add(markMenu);
         cellMenu.add(new JSeparator());
         menuBar.add(cellMenu);
