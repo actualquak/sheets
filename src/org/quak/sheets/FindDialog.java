@@ -26,10 +26,15 @@ public class FindDialog extends JDialog {
         getContentPane().removeAll();
         getContentPane().setLayout(layout);
         if (replace) {
-            setSize(Math.max(findLabel.getPreferredSize().width + findTextField.getPreferredSize().width,
-                            replaceLabel.getPreferredSize().width + replaceTextField.getPreferredSize().width),
-                    Math.max(findLabel.getPreferredSize().height + replaceLabel.getPreferredSize().height,
-                            findTextField.getPreferredSize().height + replaceTextField.getPreferredSize().height));
+            var width = Math.max(findLabel.getPreferredSize().width +
+                            findTextField.getPreferredSize().width,
+                    replaceLabel.getPreferredSize().width +
+                            replaceTextField.getPreferredSize().width);
+            var height = Math.max(findLabel.getPreferredSize().height +
+                            replaceLabel.getPreferredSize().height,
+                    findTextField.getPreferredSize().height +
+                            replaceTextField.getPreferredSize().height);
+            setSize(width, height);
             layout.setVerticalGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup()
                             .addComponent(findLabel)
@@ -45,8 +50,10 @@ public class FindDialog extends JDialog {
                             .addComponent(findTextField)
                             .addComponent(replaceTextField)));
         } else {
-            setSize(findLabel.getPreferredSize().width + findTextField.getPreferredSize().width,
-                    Math.max(findLabel.getPreferredSize().height, findTextField.getPreferredSize().height));
+            setSize(findLabel.getPreferredSize().width
+                            + findTextField.getPreferredSize().width,
+                    Math.max(findLabel.getPreferredSize().height,
+                            findTextField.getPreferredSize().height));
             layout.setVerticalGroup(layout.createParallelGroup()
                     .addComponent(findLabel)
                     .addComponent(findTextField));

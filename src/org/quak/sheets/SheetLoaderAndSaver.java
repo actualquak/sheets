@@ -33,7 +33,8 @@ public class SheetLoaderAndSaver {
     private static final byte CELL_TYPE_NUMBER = 0;
     private static final byte CELL_TYPE_LABEL = 1;
     private static final byte CELL_TYPE_FORMULA = 2;
-    private static SheetRegistry loadVersion1File(File f, DataInputStream ds) throws IOException {
+    private static SheetRegistry loadVersion1File(File f, DataInputStream ds)
+            throws IOException {
         var r = new SheetRegistry();
         while(true) {
             byte type;
@@ -42,9 +43,13 @@ public class SheetLoaderAndSaver {
             var row = ds.readInt();
             var pos = new CellPosition(col, row);
             switch(type) {
-                case CELL_TYPE_LABEL -> r.cells.put(new CellPosition(col, row), LabelCell.load(ds));
-                case CELL_TYPE_NUMBER -> r.cells.put(new CellPosition(col, row), NumberCell.load(ds));
-                case CELL_TYPE_FORMULA -> r.cells.put(new CellPosition(col, row), FormulaCell.load(ds, new CellPosition(col, row)));
+                case CELL_TYPE_LABEL -> r.cells.put(new CellPosition(col, row),
+                        LabelCell.load(ds));
+                case CELL_TYPE_NUMBER -> r.cells.put(
+                        new CellPosition(col, row), NumberCell.load(ds));
+                case CELL_TYPE_FORMULA -> r.cells.put(
+                        new CellPosition(col, row),
+                        FormulaCell.load(ds, new CellPosition(col, row)));
                 default -> throw new IOException("Found invalid cell type");
             }
         }
@@ -62,11 +67,18 @@ public class SheetLoaderAndSaver {
             return null;
         }
     }
-    private static void writeCell(DataOutputStream ds, CellPosition pos, Cell cell) throws IOException {
-        if(cell.getClass().equals(DummyCell.class) || pos.col() == 0 || pos.row() == 0) return; // don't try to serialize these
-        if (cell.getClass().equals(LabelCell.class)) ds.writeByte(CELL_TYPE_LABEL);
-        else if(cell.getClass().equals(NumberCell.class)) ds.writeByte(CELL_TYPE_NUMBER);
-        else if(cell.getClass().equals(FormulaCell.class)) ds.writeByte(CELL_TYPE_FORMULA);
+    private static void
+    writeCell(DataOutputStream ds, CellPosition pos, Cell cell)
+            throws IOException {
+        if(cell.getClass().equals(DummyCell.class)
+                || pos.col() == 0 || pos.row() == 0)
+            return; // don't try to serialize these
+        if (cell.getClass().equals(LabelCell.class))
+            ds.writeByte(CELL_TYPE_LABEL);
+        else if(cell.getClass().equals(NumberCell.class))
+            ds.writeByte(CELL_TYPE_NUMBER);
+        else if(cell.getClass().equals(FormulaCell.class))
+            ds.writeByte(CELL_TYPE_FORMULA);
         else throw new IOException("Found non-serializable cell");
         ds.writeInt(pos.col());
         ds.writeInt(pos.row());
@@ -76,7 +88,9 @@ public class SheetLoaderAndSaver {
         try {
             var ds = new DataOutputStream(new FileOutputStream(f));
             ds.writeInt(0x0158EE15);
-            for (var e : r.cells.entrySet()) writeCell(ds, e.getKey(), e.getValue()); // TODO: cursor/dataEntry
+            for (var e : r.cells.entrySet())
+                // TODO: cursor/dataEntry
+                writeCell(ds, e.getKey(), e.getValue());
             return true;
         } catch(IOException e) {
             showErrorWindow(e);

@@ -11,7 +11,8 @@ import java.awt.event.KeyEvent;
 public class SaveAsAction extends MyAction {
     final SheetRenderer renderer;
     final SheetRegistry registry;
-    @SuppressWarnings("unused") public SaveAsAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    SaveAsAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Save as...",
                 null,
                 "Save the current file as",

@@ -12,7 +12,8 @@ import java.awt.event.KeyEvent;
 public class CopyAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public CopyAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    CopyAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Copy",
                 null,
                 "Copy text to clipboard",
@@ -22,7 +23,10 @@ public class CopyAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(Util.copySelectionFromSheet(renderer, registry), null);
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(Util.copySelectionFromSheet(renderer, registry),
+                        null);
         renderer.selection = null;
         renderer.repaint();
     }

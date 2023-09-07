@@ -12,7 +12,8 @@ import java.util.Collections;
 public class InsertColumnRightAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public InsertColumnRightAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    InsertColumnRightAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Column Right",
                 null,
                 "Insert a column to the right of the selection",

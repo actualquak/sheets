@@ -15,10 +15,13 @@ public class DownArrowAction extends MyAction {
     }
     @Override public void actionPerformed(ActionEvent e) {
         if (context.enteringData) return;
-        if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0 && context.selection == null)
+        if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0
+                && context.selection == null)
             context.selection = CellSelection.makeSelection(context.cursor);
-        if (context.selection != null) context.selection = context.selection.expandDown();
-        context.cursor = new CellPosition(context.cursor.col(), context.cursor.row() + 1);
+        if (context.selection != null)
+            context.selection = context.selection.expandDown();
+        context.cursor = new CellPosition(context.cursor.col(),
+                context.cursor.row() + 1);
         context.repaint();
     }
 }

@@ -19,7 +19,8 @@ public class SheetRegistry {
     public Cell at(CellPosition pos) {
         if (pos.col() == 0 && pos.row() == 0) return new LabelCell("@");
         if (pos.col() == 0) return new LabelCell(String.valueOf(pos.row()));
-        if (pos.row() == 0) return new LabelCell(Util.base26ButNotReally(pos.col()));
+        if (pos.row() == 0)
+            return new LabelCell(Util.base26ButNotReally(pos.col()));
         return cells.computeIfAbsent(pos, p -> new DummyCell());
     }
     public void at(CellPosition pos, Cell cell) {
@@ -34,7 +35,8 @@ public class SheetRegistry {
         var map = new HashMap<CellPosition, Cell>();
         cells.forEach((pos, cell) -> {
             if (pos.col() < col) map.put(pos, cell);
-            else if (pos.col() > col) map.put(new CellPosition(pos.col() - 1, pos.row()), cell);
+            else if (pos.col() > col)
+                map.put(new CellPosition(pos.col() - 1, pos.row()), cell);
         });
         cells = map;
     }
@@ -42,7 +44,8 @@ public class SheetRegistry {
         var map = new HashMap<CellPosition, Cell>();
         cells.forEach((pos, cell) -> {
             if (pos.row() < row) map.put(pos, cell);
-            else if (pos.row() > row) map.put(new CellPosition(pos.col(), pos.row() - 1), cell);
+            else if (pos.row() > row)
+                map.put(new CellPosition(pos.col(), pos.row() - 1), cell);
         });
         cells = map;
     }

@@ -8,7 +8,8 @@ import java.awt.event.ActionEvent;
 public class EasterEggRotateAntiClockwise extends MyAction {
     private final SheetRenderer context;
     public EasterEggRotateAntiClockwise(SheetRenderer context) {
-        super(null, null, null, KeyStroke.getKeyStroke("control alt shift ESCAPE"), null);
+        super(null, null, null,
+                KeyStroke.getKeyStroke("control alt shift ESCAPE"), null);
         this.context = context;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {

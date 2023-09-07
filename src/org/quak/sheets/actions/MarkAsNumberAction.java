@@ -11,7 +11,8 @@ import java.awt.event.KeyEvent;
 public class MarkAsNumberAction extends MyAction {
     private final SheetRegistry registry;
     private final SheetRenderer renderer;
-    @SuppressWarnings("unused") public MarkAsNumberAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    MarkAsNumberAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Number",
                 null,
                 "Mark selected cell(s) as numbers",
@@ -24,11 +25,13 @@ public class MarkAsNumberAction extends MyAction {
     public void actionPerformed(ActionEvent actionEvent) {
         if(renderer.selection == null)
             try {
-                registry.at(renderer.cursor, new NumberCell(registry.at(renderer.cursor).value()));
+                registry.at(renderer.cursor,
+                        new NumberCell(registry.at(renderer.cursor).value()));
             } catch (NumberFormatException ignored) { }
         else for (var it = renderer.selection.iterator(); it.hasNext(); ) {
             var i = it.next();
-            try { registry.at(i, new NumberCell(registry.at(i).value())); } catch(NumberFormatException ignored) { }
+            try { registry.at(i, new NumberCell(registry.at(i).value())); }
+            catch(NumberFormatException ignored) { }
         }
         renderer.repaint();
     }

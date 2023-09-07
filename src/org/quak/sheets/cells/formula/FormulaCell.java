@@ -23,7 +23,8 @@ public class FormulaCell extends Cell {
         }
         this.formula = formula1;
     }
-    public static FormulaCell load(DataInputStream ds, CellPosition pos) throws IOException {
+    public static FormulaCell load(DataInputStream ds, CellPosition pos)
+            throws IOException {
         return new FormulaCell(ds.readUTF(), pos);
     }
     public String displayed() {

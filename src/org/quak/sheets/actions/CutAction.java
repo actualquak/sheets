@@ -12,7 +12,8 @@ import java.awt.event.KeyEvent;
 public class CutAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public CutAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    CutAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Cut",
                 null,
                 "Cut text to clipboard",
@@ -23,7 +24,9 @@ public class CutAction extends MyAction {
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var t = Util.copySelectionFromSheet(renderer, registry);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(t, null);
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(t, null);
         Util.deleteSelectionFromSheet(renderer, registry);
         renderer.selection = null;
         renderer.repaint();

@@ -8,10 +8,14 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public abstract class Cell {
-    private static final Pattern numberRegex = Pattern.compile("[+-]?(\\d+(\\.\\d+)?|\\.\\d+)([eE][+-]?\\d+)?");
+    private static final Pattern numberRegex
+            = Pattern.compile(
+                    "[+-]?(\\d+(\\.\\d+)?|\\.\\d+)([eE][+-]?\\d+)?");
     public static Cell make(String text, CellPosition pos) {
         var numberMatcher = numberRegex.matcher(text);
-        if(numberMatcher.matches()) try { return new NumberCell(text); } catch (NumberFormatException ignored) { }
+        if(numberMatcher.matches()) try {
+            return new NumberCell(text);
+        } catch (NumberFormatException ignored) { }
         if(text.startsWith("=")) return new FormulaCell(text, pos);
         return new LabelCell(text);
     }

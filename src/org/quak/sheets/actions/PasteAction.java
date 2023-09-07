@@ -16,7 +16,8 @@ import java.io.IOException;
 public class PasteAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public PasteAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    PasteAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Paste",
                 null,
                 "Paste text from clipboard",
@@ -27,18 +28,24 @@ public class PasteAction extends MyAction {
     }
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        var t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(this);
+        var t = Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .getContents(this);
         try {
-            if(t != null && t.isDataFlavorSupported(CellTransferable.cellsFlavor)) {
-                var d = (CellTransferable.CellDataList) t.getTransferData(CellTransferable.cellsFlavor);
+            if(t != null && t.isDataFlavorSupported(
+                    CellTransferable.cellsFlavor)) {
+                var d = (CellTransferable.CellDataList)
+                        t.getTransferData(CellTransferable.cellsFlavor);
                 for (var it = d.getIterator(); it.hasNext(); ) {
                     var e = it.next();
                     var pos = renderer.cursor.sum(e.getKey());
                     registry.at(pos, e.getValue());
                 }
             }
-            else if(t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor))
-                registry.at(renderer.cursor, new LabelCell((String) t.getTransferData(DataFlavor.stringFlavor)));
+            else if(t != null &&
+                    t.isDataFlavorSupported(DataFlavor.stringFlavor))
+                registry.at(renderer.cursor, new LabelCell((String)
+                        t.getTransferData(DataFlavor.stringFlavor)));
         } catch (UnsupportedFlavorException | IOException ignored) { }
         renderer.repaint();
     }

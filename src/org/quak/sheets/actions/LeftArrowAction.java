@@ -15,10 +15,13 @@ public class LeftArrowAction extends MyAction {
     }
     @Override public void actionPerformed(ActionEvent e) {
         if (context.enteringData) return;
-        if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0 && context.selection == null)
+        if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0
+                && context.selection == null)
             context.selection = CellSelection.makeSelection(context.cursor);
-        if (context.selection != null) context.selection = context.selection.expandLeft();
-        context.cursor = new CellPosition(Math.max(context.cursor.col() - 1, 1), context.cursor.row());
+        if (context.selection != null)
+            context.selection = context.selection.expandLeft();
+        context.cursor = new CellPosition(Math.max(context.cursor.col() - 1, 1),
+                context.cursor.row());
         context.repaint();
     }
 }

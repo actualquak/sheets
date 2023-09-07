@@ -12,7 +12,8 @@ import java.util.Collections;
 public class DeleteColumnAction extends MyAction {
     private final SheetRegistry registry;
     private final SheetRenderer renderer;
-    @SuppressWarnings("unused") public DeleteColumnAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    DeleteColumnAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Delete Column",
                 null,
                 "Delete the column(s) selected",

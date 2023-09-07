@@ -9,7 +9,8 @@ import java.awt.event.KeyEvent;
 public class OpenAction extends MyAction {
     final SheetRegistry registry;
     final SheetRenderer renderer;
-    @SuppressWarnings("unused") public OpenAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    OpenAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Open...",
                 null,
                 "Open a file",

@@ -12,7 +12,8 @@ import java.util.Collections;
 public class DeleteRowAction extends MyAction {
     private final SheetRegistry registry;
     private final SheetRenderer renderer;
-    @SuppressWarnings("unused") public DeleteRowAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    DeleteRowAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Delete Row",
                 null,
                 "Delete the row(s) selected",

@@ -11,7 +11,8 @@ import java.awt.event.KeyEvent;
 public class InsertRowAboveAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public InsertRowAboveAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    InsertRowAboveAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Row Above",
                 null,
                 "Insert a row above the selection",

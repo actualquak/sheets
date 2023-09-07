@@ -11,7 +11,8 @@ import java.awt.event.KeyEvent;
 public class InsertColumnLeftAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public InsertColumnLeftAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    InsertColumnLeftAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Column Left",
                 null,
                 "Insert a column to the left of the selection",

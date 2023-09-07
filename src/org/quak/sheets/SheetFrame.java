@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // arrgghhh
-@SuppressWarnings({"unchecked", "rawtypes"}) public class SheetFrame extends JFrame implements QUpdatable {
+@SuppressWarnings({"unchecked", "rawtypes"}) public class SheetFrame
+        extends JFrame implements QUpdatable {
     public static final List<SheetFrame> frames = new ArrayList<>();
     public final SheetRegistry registry;
     public SheetFrame() {
@@ -20,12 +21,14 @@ import java.util.List;
             setSize(300, 300);
             setContentPane(new SheetRenderer(this, registry));
             if (registry.fileName.get() == null) setTitle("Sheets - Untitled*");
-            else setTitle("Sheets - " + registry.fileName.get().getName() + (registry.saved.get() ? "" : "*"));
+            else setTitle("Sheets - " + registry.fileName.get().getName() +
+                    (registry.saved.get() ? "" : "*"));
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
     }
     @Override public void qupdate(Object q) {
         if(registry.fileName.get() == null) setTitle("Sheets - Untitled*");
-        else setTitle("Sheets - " + registry.fileName.get().getName() + (registry.saved.get() ? "" : "*"));
+        else setTitle("Sheets - " + registry.fileName.get().getName() +
+                (registry.saved.get() ? "" : "*"));
     }
 }

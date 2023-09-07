@@ -12,7 +12,8 @@ import java.util.Collections;
 public class InsertRowBelowAction extends MyAction {
     private final SheetRenderer renderer;
     private final SheetRegistry registry;
-    @SuppressWarnings("unused") public InsertRowBelowAction(SheetRenderer renderer, SheetRegistry registry) {
+    @SuppressWarnings("unused") public
+    InsertRowBelowAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Row Below",
                 null,
                 "Insert a row below the selection",

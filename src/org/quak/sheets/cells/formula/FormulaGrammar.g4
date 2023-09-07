@@ -16,14 +16,28 @@ numeric_expression:
     | SQRT '[' numeric_expression ']' #Sqrt
     | ROUND '[' numeric_expression ']' #Round
     | ABS '[' numeric_expression ']' #Abs
-    | IFGTZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Ifgtz
-    | IFLTZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Ifltz
-    | IFGTEQZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Ifgteqz
-    | IFLTEQZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Iflteqz
-    | IFEQZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Ifeqz
-    | IFNEQZ '[' numeric_expression ']' THEN '[' numeric_expression ']' ELSE '[' numeric_expression ']' #Ifneqz
+    | IFGTZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Ifgtz
+    | IFLTZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Ifltz
+    | IFGTEQZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Ifgteqz
+    | IFLTEQZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Iflteqz
+    | IFEQZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Ifeqz
+    | IFNEQZ '[' numeric_expression ']'
+        THEN '[' numeric_expression ']'
+        ELSE '[' numeric_expression ']' #Ifneqz
     | LOOKUP '[' numeric_expression ',' numeric_expression ']' #Lookup
-    | VLOOKUP '[' CELL ',' numeric_expression ',' numeric_expression ']' #Vlookup
+    | VLOOKUP '[' CELL ','
+        numeric_expression ','
+        numeric_expression ']' #Vlookup
     | NUMBER #Number
     | CELL #Cell
     ;

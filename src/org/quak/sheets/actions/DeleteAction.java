@@ -15,7 +15,8 @@ public class DeleteAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        if (!renderer.enteringData) Util.deleteSelectionFromSheet(renderer, registry);
+        if (!renderer.enteringData)
+            Util.deleteSelectionFromSheet(renderer, registry);
         renderer.repaint();
     }
 }

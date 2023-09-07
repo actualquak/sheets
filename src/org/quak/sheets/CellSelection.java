@@ -43,8 +43,10 @@ class AreaSelection extends CellSelection {
         if(rowIncrease == 0) rowIncrease = 1;
         var colIncrease = -(int) Math.signum(first.col() - second.col());
         if(colIncrease == 0) colIncrease = 1;
-        for (var x = first.col(); x != second.col() + colIncrease; x += colIncrease) {
-            for (var y = first.row(); y != second.row() + rowIncrease; y += rowIncrease) {
+        for (var x = first.col();
+             x != second.col() + colIncrease; x += colIncrease) {
+            for (var y = first.row();
+                 y != second.row() + rowIncrease; y += rowIncrease) {
                 positions.add(new CellPosition(x, y));
             }
         }
@@ -86,7 +88,8 @@ public abstract class CellSelection {
     public static CellSelection makeSelection(CellPosition cursor) {
         return new AreaSelection(cursor, cursor);
     }
-    @SuppressWarnings("unused") public static CellSelection makeSelection(CellPosition first, CellPosition second) {
+    @SuppressWarnings("unused") public static
+    CellSelection makeSelection(CellPosition first, CellPosition second) {
         // left in for mouse support
         return new AreaSelection(first, second);
     }
@@ -94,7 +97,8 @@ public abstract class CellSelection {
     public abstract CellSelection expandLeft();
     public abstract CellSelection expandRight();
     public abstract CellSelection expandUp();
-    @SuppressWarnings("unused") public abstract CellSelection flipCell(CellPosition cell); // left in for mouse support
+    @SuppressWarnings("unused") public abstract
+    CellSelection flipCell(CellPosition cell); // left in for mouse support
     public abstract boolean isIn(CellPosition cell);
     public abstract Iterator<CellPosition> iterator();
 }
