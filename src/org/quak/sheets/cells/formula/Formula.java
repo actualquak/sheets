@@ -11,6 +11,7 @@ import org.quak.sheets.CellPosition;
 import org.quak.sheets.CellSelection;
 import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.cells.Cell;
+import org.quak.sheets.cells.DummyCell;
 import org.quak.sheets.cells.NumberCell;
 
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static org.quak.sheets.cells.formula.FormulaException.PARSE_EXCEPTION;
+import static org.quak.sheets.cells.formula.FormulaException.TYPE_EXCEPTION;
 
 public class Formula {
     private final Cell cellReallyNoClobber;
@@ -75,9 +77,9 @@ public class Formula {
             else if(c instanceof FormulaCell f) try {
                 return new BigDecimal(f.displayed());
             } catch(NumberFormatException e) {
-                return FormulaException.TYPE_EXCEPTION;
-            }
-            else return FormulaException.TYPE_EXCEPTION;
+                return TYPE_EXCEPTION;
+            } else if(c instanceof DummyCell) return BigDecimal.ZERO;
+            else return TYPE_EXCEPTION;
         }
         @Override public Object
         visitStartRule(FormulaGrammarParser.StartRuleContext ctx) {
