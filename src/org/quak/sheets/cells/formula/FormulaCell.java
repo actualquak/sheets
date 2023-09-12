@@ -1,6 +1,6 @@
 package org.quak.sheets.cells.formula;
 
-import org.quak.sheets.CellPosition;
+import org.quak.sheets.SheetRegistry;
 import org.quak.sheets.cells.Cell;
 
 import java.io.DataInputStream;
@@ -11,30 +11,22 @@ public class FormulaCell extends Cell {
     private static final byte VALID_CELL = 1;
     private static final byte INVALID_CELL = 2;
     final String originalFormula;
-    final Formula formula;
+    Formula formula;
     FormulaException ex;
-    public FormulaCell(String formula, CellPosition pos) {
-        Formula formula1;
+    public FormulaCell(String formula, SheetRegistry registry) {
         this.originalFormula = formula;
         try {
-            formula1 = new Formula(formula, pos);
+            this.formula = new Formula(formula, registry, this);
         } catch(FormulaException e) {
-            formula1 = null;
+            this.formula = null;
         }
-        this.formula = formula1;
     }
-    public static FormulaCell load(DataInputStream ds, CellPosition pos)
+    public static FormulaCell load(DataInputStream ds, SheetRegistry registry)
             throws IOException {
-        return new FormulaCell(ds.readUTF(), pos);
+        return new FormulaCell(ds.readUTF(), registry);
     }
     public String displayed() {
-        if(formula != null) {
-            try {
-                return formula.displayed();
-            } catch(FormulaException e) {
-                return e.getMessage();
-            }
-        }
+        if(formula != null) return formula.displayed();
         else return "PARSER ERROR";
     }
     public String value() {

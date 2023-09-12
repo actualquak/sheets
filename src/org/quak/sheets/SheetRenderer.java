@@ -260,12 +260,12 @@ public class SheetRenderer extends JPanel implements KeyListener {
             case KeyEvent.VK_DOWN, KeyEvent.VK_LEFT,
                     KeyEvent.VK_RIGHT, KeyEvent.VK_UP -> {
                 enteringData = false;
-                registry.at(cursor, Cell.make(dataEntry.toString(), cursor));
+                registry.at(cursor, Cell.make(dataEntry.toString(), registry));
             }
             case KeyEvent.VK_ENTER -> {
                 enteringData = false;
                 wasEnteringData = true;
-                registry.at(cursor, Cell.make(dataEntry.toString(), cursor));
+                registry.at(cursor, Cell.make(dataEntry.toString(), registry));
                 repaint();
             }
         }

@@ -34,10 +34,6 @@ numeric_expression:
     | IFNEQZ '[' numeric_expression ']'
         THEN '[' numeric_expression ']'
         ELSE '[' numeric_expression ']' #Ifneqz
-    | LOOKUP '[' numeric_expression ',' numeric_expression ']' #Lookup
-    | VLOOKUP '[' CELL ','
-        numeric_expression ','
-        numeric_expression ']' #Vlookup
     | NUMBER #Number
     | CELL #Cell
     ;
@@ -67,7 +63,7 @@ LOOKUP: L O O K U P;
 VLOOKUP: V L O O K U P;
 THEN: T H E N;
 ELSE: E L S E;
-CELL: '$'? CHAR+ '$'? DIGIT+;
+CELL: CHAR+ DIGIT+;
 NUMBER: SIGN? DIGIT+ FP? | SIGN? FP;
 fragment FP: '.' DIGIT+;
 

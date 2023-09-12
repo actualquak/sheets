@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class NumberCell extends Cell {
-    BigDecimal num;
+    public BigDecimal num;
     public NumberCell(String val) throws NumberFormatException {
         num = new BigDecimal(val);
     }

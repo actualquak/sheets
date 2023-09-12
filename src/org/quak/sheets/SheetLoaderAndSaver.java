@@ -49,7 +49,7 @@ public class SheetLoaderAndSaver {
                         new CellPosition(col, row), NumberCell.load(ds));
                 case CELL_TYPE_FORMULA -> r.cells.put(
                         new CellPosition(col, row),
-                        FormulaCell.load(ds, new CellPosition(col, row)));
+                        FormulaCell.load(ds, r));
                 default -> throw new IOException("Found invalid cell type");
             }
         }

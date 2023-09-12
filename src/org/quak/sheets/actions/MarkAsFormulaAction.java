@@ -25,10 +25,10 @@ public class MarkAsFormulaAction extends MyAction {
     public void actionPerformed(ActionEvent actionEvent) {
         if(renderer.selection == null)
             registry.at(renderer.cursor, new FormulaCell(
-                    registry.at(renderer.cursor).value(), renderer.cursor));
+                    registry.at(renderer.cursor).value(), registry));
         else for (var it = renderer.selection.iterator(); it.hasNext(); ) {
             var i = it.next();
-            registry.at(i, new FormulaCell(registry.at(i).value(), i));
+            registry.at(i, new FormulaCell(registry.at(i).value(), registry));
         }
         renderer.repaint();
     }
