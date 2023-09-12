@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 public class Util {
-    private static FindDialog dialog = null;
     public static String base26ButNotReally(int i) {
         var b = new StringBuilder();
         while (i > 0) {
@@ -20,10 +19,6 @@ public class Util {
             i = (i - modulo) / 26;
         }
         return b.reverse().toString();
-    }
-    public static void showDialog(SheetRenderer context, boolean replace) {
-        if (dialog == null) dialog = new FindDialog(context);
-        dialog.replaceAndShow(replace);
     }
     public static ImageIcon loadImage(String imageName) {
         var imageLocation = "/images/" + imageName;
