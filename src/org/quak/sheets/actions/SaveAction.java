@@ -24,7 +24,7 @@ public class SaveAction extends MyAction {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(registry.fileName.get() == null) {
-            var file = Util.selectSaveFileName(renderer, registry);
+            var file = Util.selectSaveFileName(renderer);
             registry.save(file);
         } else registry.save(registry.fileName.get());
     }

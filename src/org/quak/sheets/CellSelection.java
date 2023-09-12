@@ -26,7 +26,8 @@ class AreaSelection extends CellSelection {
         second = new CellPosition(second.col(), Math.max(second.row() - 1, 1));
         return this;
     }
-    @Override public CellSelection flipCell(CellPosition cell) {
+    @SuppressWarnings("unused") @Override public CellSelection
+    flipCell(CellPosition cell) {
         var cells = new ArrayList<CellPosition>();
         iterator().forEachRemaining(cells::add);
         return new IndividualSelection(cells).flipCell(cell);
@@ -59,16 +60,16 @@ class IndividualSelection extends CellSelection {
     public IndividualSelection(ArrayList<CellPosition> cells) {
         positions = cells;
     }
-    @Override public CellSelection expandDown() {
+    @SuppressWarnings("unused") @Override public CellSelection expandDown() {
         return this;
     }
-    @Override public CellSelection expandLeft() {
+    @SuppressWarnings("unused") @Override public CellSelection expandLeft() {
         return this;
     }
-    @Override public CellSelection expandRight() {
+    @SuppressWarnings("unused") @Override public CellSelection expandRight() {
         return this;
     }
-    @Override public CellSelection expandUp() {
+    @SuppressWarnings("unused") @Override public CellSelection expandUp() {
         return this;
     }
     @Override public CellSelection flipCell(CellPosition cell) {
@@ -76,10 +77,12 @@ class IndividualSelection extends CellSelection {
         else positions.add(cell);
         return this;
     }
-    @Override public boolean isIn(CellPosition cell) {
+    @SuppressWarnings("unused") @Override public boolean
+    isIn(CellPosition cell) {
         return positions.contains(cell);
     }
-    @Override public Iterator<CellPosition> iterator() {
+    @SuppressWarnings("unused") @Override public Iterator<CellPosition>
+    iterator() {
         return positions.iterator();
     }
 }

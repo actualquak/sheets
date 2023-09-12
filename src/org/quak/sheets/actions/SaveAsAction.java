@@ -22,7 +22,7 @@ public class SaveAsAction extends MyAction {
         this.registry = registry;
     }
     @Override public void actionPerformed(ActionEvent actionEvent) {
-        var file = Util.selectSaveFileName(renderer, registry);
+        var file = Util.selectSaveFileName(renderer);
         registry.save(file);
     }
 }

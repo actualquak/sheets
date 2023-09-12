@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // arrgghhh
-@SuppressWarnings({"unchecked", "rawtypes"}) public class SheetFrame
+public class SheetFrame
         extends JFrame implements QUpdatable {
     public static final List<SheetFrame> frames = new ArrayList<>();
     public final SheetRegistry registry;
@@ -26,7 +26,7 @@ import java.util.List;
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
     }
-    @Override public void qupdate(Object q) {
+    @Override public void qupdate() {
         if(registry.fileName.get() == null) setTitle("Sheets - Untitled*");
         else setTitle("Sheets - " + registry.fileName.get().getName() +
                 (registry.saved.get() ? "" : "*"));

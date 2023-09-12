@@ -41,7 +41,6 @@ public class SheetLoaderAndSaver {
             try { type = ds.readByte(); } catch(EOFException e) { break; }
             var col = ds.readInt();
             var row = ds.readInt();
-            var pos = new CellPosition(col, row);
             switch(type) {
                 case CELL_TYPE_LABEL -> r.cells.put(new CellPosition(col, row),
                         LabelCell.load(ds));

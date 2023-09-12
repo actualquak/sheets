@@ -35,7 +35,7 @@ public class SheetRenderer extends JPanel implements KeyListener {
         var fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         fileMenu.add(getMenuItem(NewAction.class));
-        fileMenu.add(getMenuItem(OpenAction.class, this, registry));
+        fileMenu.add(getMenuItem(OpenAction.class, this));
         fileMenu.add(getMenuItem(SaveAction.class, this, registry));
         fileMenu.add(getMenuItem(SaveAsAction.class, this, registry));
         fileMenu.add(getMenuItem(CloseAction.class, this));

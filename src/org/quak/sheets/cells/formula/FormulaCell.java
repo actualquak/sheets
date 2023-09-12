@@ -8,11 +8,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class FormulaCell extends Cell {
-    private static final byte VALID_CELL = 1;
-    private static final byte INVALID_CELL = 2;
     final String originalFormula;
     Formula formula;
-    FormulaException ex;
     public FormulaCell(String formula, SheetRegistry registry) {
         this.originalFormula = formula;
         try {

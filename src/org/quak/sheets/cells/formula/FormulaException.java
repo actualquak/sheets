@@ -6,8 +6,6 @@ public class FormulaException extends Exception {
             new FormulaException("TYPE ERROR");
     public static final FormulaException PARSE_EXCEPTION =
             new FormulaException("SYNTAX ERROR");
-    public static final FormulaException NOT_IMPLEMENTED_EXCEPTION =
-            new FormulaException("NOT IMPLEMENTED");
     public static final FormulaException RECURSIVE_FORMULA_EXCEPTION =
             new FormulaException("RECURSIVE FORMULA");
 }

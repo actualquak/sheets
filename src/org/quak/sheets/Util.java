@@ -100,7 +100,7 @@ public class Util {
         else registry.del(renderer.cursor);
     }
     public static File
-    selectSaveFileName(SheetRenderer renderer, SheetRegistry registry) {
+    selectSaveFileName(SheetRenderer renderer) {
         var fc = new JFileChooser();
         var filter = new FileNameExtensionFilter("Spreadsheet files",
                 "sheet");
@@ -112,7 +112,7 @@ public class Util {
                 null;
     }
     public static File
-    openFileName(SheetRenderer renderer, SheetRegistry registry) {
+    openFileName(SheetRenderer renderer) {
         var fc = new JFileChooser();
         var filter = new FileNameExtensionFilter("Spreadsheet files",
                 "sheet");
