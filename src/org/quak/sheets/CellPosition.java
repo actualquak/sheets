@@ -30,4 +30,7 @@ public record CellPosition(int col, int row) {
         }
         return new CellPosition(column, row);
     }
+    @Override public int hashCode() {
+        return Objects.hash(col, row);
+    }
 }
