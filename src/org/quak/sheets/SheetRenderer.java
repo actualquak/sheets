@@ -44,15 +44,11 @@ public class SheetRenderer extends JPanel implements KeyListener {
 
         var editMenu = new JMenu("Edit");
         editMenu.setMnemonic(KeyEvent.VK_E);
-        editMenu.add(getMenuItem(UndoAction.class));
-        editMenu.add(getMenuItem(RedoAction.class));
         editMenu.add(new JSeparator());
         editMenu.add(getMenuItem(CutAction.class, this, registry));
         editMenu.add(getMenuItem(CopyAction.class, this, registry));
         editMenu.add(getMenuItem(PasteAction.class, this, registry));
         editMenu.add(new JSeparator());
-        editMenu.add(getMenuItem(FindAction.class, this));
-        editMenu.add(getMenuItem(ReplaceAction.class, this));
         menuBar.add(editMenu);
 
         var cellMenu = new JMenu("Cell");
