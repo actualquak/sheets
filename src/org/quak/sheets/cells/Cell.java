@@ -17,6 +17,7 @@ public abstract class Cell {
             return new NumberCell(text);
         } catch (NumberFormatException ignored) { }
         if(text.startsWith("=")) return new FormulaCell(text, registry);
+        else if(text.length() == 0) return new DummyCell();
         return new LabelCell(text);
     }
     public abstract String displayed();
