@@ -129,25 +129,27 @@ public class SheetRenderer extends JPanel implements KeyListener {
     @Override public void paintComponent(Graphics graphics) {
         var col_top = topLeftCell.col();
         var row_top = topLeftCell.row();
-        if (cursor.col() <= topLeftCell.col()) {
+        if (cursor.col() <= col_top) {
             topLeftCell = new CellPosition(
                     topLeftCell.col() - 1, topLeftCell.row());
             repaint();
             return;
         }
-        if (cursor.row() <= topLeftCell.row()) {
+        if (cursor.row() <= row_top) {
             topLeftCell = new CellPosition(
                     topLeftCell.col(), topLeftCell.row() - 1);
             repaint();
             return;
         }
-        if (cursor.col() >= topLeftCell.col() + oldColNum) {
+        if (cursor.col() >= col_top + oldColNum + 1
+            || cursor.col() >= col_top + oldColNum && oldColNum > 1) {
             topLeftCell = new CellPosition(
                     topLeftCell.col() + 1, topLeftCell.row());
             repaint();
             return;
         }
-        if (cursor.row() >= topLeftCell.row() + oldRowNum) {
+        if (cursor.row() >= row_top + oldRowNum + 1
+            || cursor.row() >= row_top + oldRowNum && oldRowNum > 1) {
             topLeftCell = new CellPosition(
                     topLeftCell.col(), topLeftCell.row() + 1);
             repaint();
