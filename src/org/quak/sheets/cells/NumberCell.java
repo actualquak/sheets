@@ -17,9 +17,7 @@ public class NumberCell extends Cell {
         return num.toString();
     }
     public static NumberCell load(DataInputStream ds) throws IOException {
-        var r = new NumberCell("0");
-        r.num = new BigDecimal(ds.readUTF());
-        return r;
+        return new NumberCell(ds.readUTF());
     }
     @Override public void write(DataOutputStream ds) throws IOException {
         ds.writeUTF(num.toString());
