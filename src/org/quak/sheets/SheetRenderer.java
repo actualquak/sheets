@@ -190,6 +190,12 @@ public class SheetRenderer extends JPanel implements KeyListener {
             x += 5;
             y = topBarHeight;
             for (var row = row_top; true; row++) {
+                if(col == cursor.col() && row == cursor.row()) {
+                    g.setColor(new Color(0, 0, 0, 30));
+                    g.fillRect(x - 5, y, colWidths[col] + 10,
+                            rowHeights[row] + 10);
+                }
+                // Draw cursor borders in red
                 if ((col == cursor.col() || col == cursor.col() + 1)
                         && row == cursor.row()) g.setColor(Color.RED);
                 else if (selection != null && (selection.isIn(
