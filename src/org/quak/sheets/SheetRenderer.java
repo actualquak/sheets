@@ -186,7 +186,7 @@ public class SheetRenderer extends JPanel implements KeyListener {
             return;
         }
         if (cursor.col() >= col_top + oldColNum + 1
-            || cursor.col() >= col_top + oldColNum && oldColNum > 1) {
+            || cursor.col() >= col_top + oldColNum && oldColNum > 2) {
             // Right arrow has been pressed, and cursor scrolled offscreen
             topLeftCell = new CellPosition(
                     topLeftCell.col() + 1, topLeftCell.row());
@@ -194,7 +194,7 @@ public class SheetRenderer extends JPanel implements KeyListener {
             return;
         }
         if (cursor.row() >= row_top + oldRowNum + 1
-            || cursor.row() >= row_top + oldRowNum && oldRowNum > 1) {
+            || cursor.row() >= row_top + oldRowNum && oldRowNum > 2) {
             // Down arrow has been pressed, and cursor scrolled offscreen
             topLeftCell = new CellPosition(
                     topLeftCell.col(), topLeftCell.row() + 1);
