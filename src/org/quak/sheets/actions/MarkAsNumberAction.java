@@ -9,8 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class MarkAsNumberAction extends MyAction {
+    // Action to mark a cell as a number
+
+    // Registry
     private final SheetRegistry registry;
+    // Renderer
     private final SheetRenderer renderer;
+    // Constructor
     @SuppressWarnings("unused") public
     MarkAsNumberAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Number",
@@ -21,6 +26,7 @@ public class MarkAsNumberAction extends MyAction {
         this.registry = registry;
         this.renderer = renderer;
     }
+    // Mark a cell as a number
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(renderer.selection == null)

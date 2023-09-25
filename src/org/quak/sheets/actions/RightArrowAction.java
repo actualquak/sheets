@@ -8,11 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class RightArrowAction extends MyAction {
+    // Action for moving the cursor right
+
+    // Renderer
     private final SheetRenderer context;
+    // Constructor
     public RightArrowAction(SheetRenderer context) {
         super(null, null, null, null, null);
         this.context = context;
     }
+    // Move the cursor right
+    // See DownArrowAction::actionPerformed
     @Override public void actionPerformed(ActionEvent e) {
         if (context.enteringData) return;
         if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0

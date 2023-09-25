@@ -9,8 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class MarkAsTextAction extends MyAction {
+    // Action to mark cell as text
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     MarkAsTextAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Text",
@@ -21,6 +26,7 @@ public class MarkAsTextAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Mark a cell as text
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(renderer.selection == null)

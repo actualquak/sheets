@@ -10,8 +10,13 @@ import java.awt.event.KeyEvent;
 import java.util.Collections;
 
 public class DeleteColumnAction extends MyAction {
+    // An action for deleting columns from sheets
+
+    // Registry
     private final SheetRegistry registry;
+    // Renderer
     private final SheetRenderer renderer;
+    // Constructor
     @SuppressWarnings("unused") public
     DeleteColumnAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Delete Column",
@@ -22,6 +27,7 @@ public class DeleteColumnAction extends MyAction {
         this.registry = registry;
         this.renderer = renderer;
     }
+    // Deletes the currently selected columns from the spreadsheet
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);

@@ -8,11 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class LeftArrowAction extends MyAction {
+    // Action for when the left arrow is pressed
+
+    // Renderer
     private final SheetRenderer context;
+    // Constructor
     public LeftArrowAction(SheetRenderer context) {
         super(null, null, null, null, null);
         this.context = context;
     }
+    // When left arrow pressed, move left
+    // See DownArrowAction::actionPerformed
     @Override public void actionPerformed(ActionEvent e) {
         if (context.enteringData) return;
         if ((e.getModifiers() & KeyEvent.SHIFT_MASK) > 0

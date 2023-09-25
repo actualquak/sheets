@@ -26,17 +26,26 @@ import static org.quak.sheets.cells.formula.FormulaException.PARSE_EXCEPTION;
 import static org.quak.sheets.cells.formula.FormulaException.TYPE_EXCEPTION;
 
 public class Formula {
+    // Class that implements evaluation of formulas
     private final Cell cellReallyNoClobber;
     private static final class FormulaEvaluator
             extends FormulaGrammarBaseVisitor<Object>
             implements FormulaGrammarVisitor<Object> {
-        // yes, we do RETURN exceptions. what's the problem?
+        // Visitor to evaluate formulas from their AST
+        // This class has some awful code smell from the returned exceptions
+
+        // A reference to the cell that contains this formula,
+        // to avoid self-referencing
         private final Cell cellNoClobberName;
+        // Registry
         private final SheetRegistry registry;
+        // Constructor
         FormulaEvaluator(SheetRegistry registry, Cell cell) {
             this.cellNoClobberName = cell;
             this.registry = registry;
         }
+        // A higher-order function to simplify writing the code below
+        // Implements a custom version of map-reduce
         private Object doListItem(Supplier<Object> supply,
                             BigDecimal initialValue,
                             BiFunction<BigDecimal, BigDecimal, Object> output) {
@@ -61,17 +70,22 @@ public class Formula {
             }
             return value;
         }
+        // Call a function with a BigDecimal as its argument,
+        // returning TypeError if the type is wrong
+        // Used as another utility
         private Object callBd(Object bd,
                               Function<BigDecimal, Object> f) {
             if (bd instanceof BigDecimal bd1) return f.apply(bd1);
             else if (bd instanceof FormulaException e) return e;
             else return FormulaException.TYPE_EXCEPTION;
         }
+        // Math Context
         private final MathContext mc = new MathContext(10,
                 RoundingMode.HALF_UP);
+        // Get value of cell
         private Object atCell(Cell c) {
             if(c.equals(cellNoClobberName))
-                // this doesn't catch mutual recursion
+                // This doesn't catch mutual recursion
                 return FormulaException.RECURSIVE_FORMULA_EXCEPTION;
             if(c instanceof NumberCell n) return n.num;
             else if(c instanceof FormulaCell f) try {
@@ -81,6 +95,10 @@ public class Formula {
             } else if(c instanceof DummyCell) return BigDecimal.ZERO;
             else return TYPE_EXCEPTION;
         }
+        // See ANTLR visitor documentation,
+        // or see https://craftinginterpreters.com/
+        // Suffice to say, this implements
+        // recursive-descent evaluation of formulas
         @Override public Object
         visitStartRule(FormulaGrammarParser.StartRuleContext ctx) {
             return visit(ctx.formula());
@@ -264,6 +282,7 @@ public class Formula {
     private static final class FormulaPrinter
             extends FormulaGrammarBaseVisitor<String>
             implements FormulaGrammarVisitor<String> {
+        // Similar to above, but only implements pretty-printing
         // TODO: relative positions
         private String cell(TerminalNode ctx) {
             return clean(ctx.getText());
@@ -387,8 +406,11 @@ public class Formula {
             return clean(super.visit(tree));
         }
     }
+    // Parsed formula tree
     final FormulaGrammarParser.FormulaContext ctx;
+    // Registry
     final SheetRegistry registry;
+    // Constructor
     public Formula(String formula, SheetRegistry registry, Cell cell)
             throws FormulaException {
         this.cellReallyNoClobber = cell;
@@ -406,10 +428,12 @@ public class Formula {
         }
         ctx = ctx1;
     }
+    // Get value
     public String value() {
         var p = new FormulaPrinter();
         return p.visit(ctx);
     }
+    // Get displayed value
     public String displayed() {
         var e = new FormulaEvaluator(registry, this.cellReallyNoClobber);
         var o = e.visit(ctx);

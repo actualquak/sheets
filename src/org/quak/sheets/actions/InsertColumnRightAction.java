@@ -10,8 +10,13 @@ import java.awt.event.KeyEvent;
 import java.util.Collections;
 
 public class InsertColumnRightAction extends MyAction {
+    // Action for inserting a column to the right
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     InsertColumnRightAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Column Right",
@@ -22,6 +27,7 @@ public class InsertColumnRightAction extends MyAction {
         this.registry = registry;
         this.renderer = renderer;
     }
+    // Insert a column to the right
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionColumns(renderer);
         Collections.reverse(q);

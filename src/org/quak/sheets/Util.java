@@ -11,6 +11,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 public class Util {
+    // Class for miscellaneous utilities that really don't belong anywhere else
+    // but do not need their own class
+
+    // Converts a column integer to a column name
+    // (i.e. 1 -> A, 26 -> Z, 28 -> AB)
     public static String base26ButNotReally(int i) {
         var b = new StringBuilder();
         while (i > 0) {
@@ -20,6 +25,9 @@ public class Util {
         }
         return b.reverse().toString();
     }
+    // Load an image icon. This is unused (deleted the images)
+    // Still included because it does work and could be a starting point
+    // towards other things which are also useful (image cells?)
     public static ImageIcon loadImage(String imageName) {
         var imageLocation = "/images/" + imageName;
         var imageURL = Util.class.getResource(imageLocation);
@@ -29,6 +37,7 @@ public class Util {
         }
         return new ImageIcon(imageURL);
     }
+    // Get a sorted list of the columns in the current selection
     public static ArrayList<Integer>
     getSortedSelectionColumns(SheetRenderer renderer) {
         if (renderer.selection != null) {
@@ -47,6 +56,7 @@ public class Util {
             return l;
         }
     }
+    // Get a sorted list of the rows in the current selection
     public static ArrayList<Integer>
     getSortedSelectionRows(SheetRenderer renderer) {
         if (renderer.selection != null) {
@@ -65,6 +75,7 @@ public class Util {
             return l;
         }
     }
+    // Copy the current selection from the spreadsheet
     public static Transferable
     copySelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
         var dataList = new CellTransferable.CellDataList();
@@ -89,11 +100,13 @@ public class Util {
 
         return new CellTransferable(dataList);
     }
+    // Delete the current selection from the spreadsheet
     public static void
     deleteSelectionFromSheet(SheetRenderer renderer, SheetRegistry registry) {
         if (renderer.enteringData) renderer.dataEntry = new StringBuilder();
         else registry.del(renderer.cursor);
     }
+    // Save file dialog
     public static File
     selectSaveFileName(SheetRenderer renderer) {
         var fc = new JFileChooser();
@@ -106,6 +119,7 @@ public class Util {
                 ? fc.getSelectedFile() :
                 null;
     }
+    // Open file
     public static File
     openFileName(SheetRenderer renderer) {
         var fc = new JFileChooser();

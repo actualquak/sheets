@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class CloseAllAction extends MyAction {
+    // An action for closing all windows
+
+    // Constructor
     @SuppressWarnings("unused") public CloseAllAction() {
         super("Close All",
                 null,
@@ -14,8 +17,8 @@ public class CloseAllAction extends MyAction {
                 KeyStroke.getKeyStroke("control shift W"),
                 KeyEvent.VK_A);
     }
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    // Closes all windows
+    @Override public void actionPerformed(ActionEvent actionEvent) {
         for (var frame : SheetFrame.frames) frame.dispose();
     }
 }

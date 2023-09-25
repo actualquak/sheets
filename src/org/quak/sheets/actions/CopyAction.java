@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class CopyAction extends MyAction {
+    // Action to copy selection from file
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     CopyAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Copy",
@@ -22,6 +27,7 @@ public class CopyAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Copy into clipboard
     @Override public void actionPerformed(ActionEvent actionEvent) {
         Toolkit.getDefaultToolkit()
                 .getSystemClipboard()

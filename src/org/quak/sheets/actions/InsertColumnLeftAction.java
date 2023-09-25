@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class InsertColumnLeftAction extends MyAction {
+    // Action for inserting a column to the left
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     InsertColumnLeftAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Column Left",
@@ -22,6 +27,7 @@ public class InsertColumnLeftAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Insert a column to the left
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionColumns(renderer);
         registry.insertColumn(q.get(0));

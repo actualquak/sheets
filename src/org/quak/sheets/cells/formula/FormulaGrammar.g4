@@ -1,9 +1,21 @@
 grammar FormulaGrammar;
 
+// ANTLR grammar for parsing formulas
+// ANTLR is a great tool - very convinent and easy to use
+// The grammar can be regenerated using Ctrl-Shift-G in IDEA; there should
+// be a way to do it from the command line as well, but exact procedures
+// have not been documented here because it has never been done
+// as there has never been a need
+// If you find this code confusing, you should look up the ANTLR documentation,
+// tutorials and examples, as I don't want to explain parser generators here
+
+// Starting rule - parsing starts here
 startRule: formula;
 
+// The rule for a whole formula
 formula: '=' numeric_expression EOF;
 
+// A expression whose type is a number
 numeric_expression:
     SUM '[' cells (',' cells)* ']' #Sum
     | PROD '[' cells (',' cells)* ']' #Prod
@@ -38,10 +50,14 @@ numeric_expression:
     | CELL #Cell
     ;
 
+// An expression whose type is a number or list of cells
 cells: CELL ':' CELL #CellRange
     | numeric_expression #Expr
     ;
 
+
+// However case insensitivity with ANTLR is a bit of a pain - this seems to
+// be the best way to do it
 SUM: S U M;
 PROD: P R O D;
 MEAN: M E A N;
@@ -99,4 +115,5 @@ fragment CHAR: A | B | C | D | E | F | G | H | I | J
     | U | V | W | X | Y | Z ;
 fragment SIGN: [+-];
 fragment DIGIT: [0-9];
+// Skip whitespace
 WS: [ \t\r\n]+ -> skip;

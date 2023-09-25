@@ -30,9 +30,15 @@ import java.io.*;
  */
 
 public class SheetLoaderAndSaver {
+    // Class to load and save spreadsheets
+
+    // ID for number cells
     private static final byte CELL_TYPE_NUMBER = 0;
+    // ID for label cells
     private static final byte CELL_TYPE_LABEL = 1;
+    // ID for formula cells
     private static final byte CELL_TYPE_FORMULA = 2;
+    // Load V1 file (the only file format that exists currently)
     private static SheetRegistry loadVersion1File(File f, DataInputStream ds)
             throws IOException {
         var r = new SheetRegistry();
@@ -56,6 +62,7 @@ public class SheetLoaderAndSaver {
         r.saved.set(true);
         return r;
     }
+    // Load file
     public static SheetRegistry load(File f) {
         try {
             var ds = new DataInputStream(new FileInputStream(f));
@@ -66,6 +73,7 @@ public class SheetLoaderAndSaver {
             return null;
         }
     }
+    // Write a cell
     private static void
     writeCell(DataOutputStream ds, CellPosition pos, Cell cell)
             throws IOException {
@@ -83,6 +91,7 @@ public class SheetLoaderAndSaver {
         ds.writeInt(pos.row());
         cell.write(ds);
     }
+    // Save file
     public static boolean save(SheetRegistry r, File f) {
         try {
             var ds = new DataOutputStream(new FileOutputStream(f));
@@ -96,6 +105,7 @@ public class SheetLoaderAndSaver {
             return false;
         }
     }
+    // Show an error window (stacktrace)
     private static void showErrorWindow(Exception e) {
         var contents = new StringWriter();
         e.printStackTrace(new PrintWriter(contents));

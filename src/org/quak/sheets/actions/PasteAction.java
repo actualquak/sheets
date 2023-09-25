@@ -14,8 +14,13 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class PasteAction extends MyAction {
+    // Action to paste into a spreadsheet
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     PasteAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Paste",
@@ -26,8 +31,8 @@ public class PasteAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    // Paste clipboard into spreadsheet
+    @Override public void actionPerformed(ActionEvent actionEvent) {
         var t = Toolkit.getDefaultToolkit()
                 .getSystemClipboard()
                 .getContents(this);

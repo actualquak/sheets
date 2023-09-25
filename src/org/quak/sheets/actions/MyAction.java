@@ -5,6 +5,11 @@ import org.quak.sheets.Util;
 import javax.swing.*;
 
 public abstract class MyAction extends AbstractAction {
+    // Abstract class for actions
+    // Allows for conveniently specifying default parameters into the Action
+    // and making it explicit to miss any
+
+    // Constructor
     public MyAction(String name, String iconLocation,
                     String desc, KeyStroke accelKey, Integer mnemonic) {
         super();

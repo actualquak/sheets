@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class InsertRowAboveAction extends MyAction {
+    // Action to insert a row above the current selection
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     InsertRowAboveAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Row Above",
@@ -22,6 +27,7 @@ public class InsertRowAboveAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Insert a row above the current selection
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionRows(renderer);
         registry.insertRow(q.get(0));

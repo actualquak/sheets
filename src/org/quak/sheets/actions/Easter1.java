@@ -5,9 +5,9 @@ import org.quak.sheets.SheetRenderer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class EasterEggRotateAntiClockwise extends MyAction {
+public class Easter1 extends MyAction {
     private final SheetRenderer context;
-    public EasterEggRotateAntiClockwise(SheetRenderer context) {
+    public Easter1(SheetRenderer context) {
         super(null, null, null,
                 KeyStroke.getKeyStroke("control alt shift ESCAPE"), null);
         this.context = context;

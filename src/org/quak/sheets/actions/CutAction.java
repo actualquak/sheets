@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class CutAction extends MyAction {
+    // Action to cut selection from file
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     CutAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Cut",
@@ -22,6 +27,7 @@ public class CutAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Selection cut
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var t = Util.copySelectionFromSheet(renderer, registry);
         Toolkit.getDefaultToolkit()

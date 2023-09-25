@@ -9,8 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class SaveAction extends MyAction {
+    // Action to save a file
+
+    // Renderer
     final SheetRenderer renderer;
+    // Registry
     final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     SaveAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Save",
@@ -21,6 +26,7 @@ public class SaveAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Save file
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(registry.fileName.get() == null) {

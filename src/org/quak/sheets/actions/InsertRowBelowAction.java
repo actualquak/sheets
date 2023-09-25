@@ -10,8 +10,13 @@ import java.awt.event.KeyEvent;
 import java.util.Collections;
 
 public class InsertRowBelowAction extends MyAction {
+    // Action for inserting a row below the current selection
+
+    // Renderer
     private final SheetRenderer renderer;
+    // Registry
     private final SheetRegistry registry;
+    // Constructor
     @SuppressWarnings("unused") public
     InsertRowBelowAction(SheetRenderer renderer, SheetRegistry registry) {
         super("Insert Row Below",
@@ -22,6 +27,7 @@ public class InsertRowBelowAction extends MyAction {
         this.renderer = renderer;
         this.registry = registry;
     }
+    // Insert a row below the current selection
     @Override public void actionPerformed(ActionEvent actionEvent) {
         var q = Util.getSortedSelectionRows(renderer);
         Collections.reverse(q);
